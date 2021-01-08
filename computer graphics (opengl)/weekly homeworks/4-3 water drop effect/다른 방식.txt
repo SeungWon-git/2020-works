@@ -1,0 +1,145 @@
+//코드는 훨씬 짧은데 단점으로는 선파동과 후파동이 속도가 같을수밖에 없다.
+
+#pragma warning(disable: 4996)
+#include <iostream>
+#include <random>
+#include <math.h>
+#include <gl/glew.h> 
+#include <gl/freeglut.h> 
+#include <gl/freeglut_ext.h> 
+
+GLvoid drawScene(GLvoid);
+GLvoid Reshape(int w, int h);
+GLvoid Keyboard(unsigned char key, int x, int y);
+void Mouse(int b, int s, int x, int y);
+void TimerFunction(int value);
+
+std::random_device rd;
+
+std::default_random_engine dre{ rd() };
+std::uniform_real_distribution<> uid{ 0.0,0.2 };
+
+typedef struct circle {
+	GLfloat cx, cy;
+	bool flag;
+}circle;
+
+circle c_a[10];
+double rad[10];
+int index = 0;
+bool start = 0;
+bool p_flag = 0;
+
+void display_circle()
+{
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glColor3f(0.0f, 0.0f, 1.0f);
+
+	double angle, x, y;
+
+	glPointSize(3);
+	glLineWidth(3);
+
+	for (int j = 0; j < 10; ++j) {
+		if (p_flag == 1)
+			glBegin(GL_POINTS);
+		else
+			glBegin(GL_LINE_STRIP);
+
+		if (c_a[j].flag == 1) {
+			for (int i = 0; i <= 360; i++) {
+				angle = i * 3.141592 / 180;
+				x = rad[j] * cos(angle);
+				y = rad[j] * sin(angle);
+				glVertex2f(x + c_a[j].cx, y + c_a[j].cy);
+			}
+
+			glEnd();
+
+			if (p_flag == 1)
+				glBegin(GL_POINTS);
+			else
+				glBegin(GL_LINE_STRIP);
+
+			if (rad[j] >= 0.35)
+			{
+				for (int i = 0; i <= 360; i++) {
+					angle = i * 3.141592 / 180;
+					x = (rad[j]-0.35) * cos(angle);
+					y = (rad[j]-0.35) * sin(angle);
+					glVertex2f(x + c_a[j].cx, y + c_a[j].cy);
+				}
+			}
+		}	
+
+		glEnd();
+	}
+	
+	glutSwapBuffers();
+}
+
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(800, 800);
+	glutCreateWindow("OpenGL");
+
+	glutDisplayFunc(display_circle);
+	glutReshapeFunc(Reshape);
+	glutKeyboardFunc(Keyboard);
+	glutMouseFunc(Mouse);
+	glutMainLoop();
+}
+
+GLvoid Reshape(int w, int h)
+{
+	glViewport(0, 0, 800, 800);
+}
+
+void Mouse(int b, int s, int x, int y)
+{
+	if (b == GLUT_LEFT_BUTTON && s == GLUT_DOWN)
+	{
+		c_a[index].cx = (GLclampf)((x - 400) / 400.0);		
+		c_a[index].cy = (GLclampf)((400 - y) / 400.);
+		c_a[index].flag = 1;
+		rad[index] = uid(dre);
+
+		index++;
+		if (index >= 10) 
+			index = 0;
+
+		if(start==0)	//클릭시 빨라짐 막음
+			glutTimerFunc(10, TimerFunction, 1);
+	}
+
+	glutPostRedisplay();
+}
+
+void TimerFunction(int value) {
+	start = 1;
+
+	int sum_flag = 0;
+	for (int i = 0; i < 20; ++i)
+		sum_flag += c_a[i].flag;
+
+	if (sum_flag != 0)
+	{
+		for (int i = 0; i < 10; ++i)
+		{
+			if (c_a[i].flag == 1) {
+				rad[i] += 0.005;
+
+				if (rad[i] >= 3.0)
+					c_a[i].flag = 0;
+			}
+		}
+
+		p_flag = 0;
+		break;
+	}
+	glutPostRedisplay();
+}
