@@ -1,0 +1,4715 @@
+
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 6:59:15 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	string s1{ "0123456789" };
+	string s2 = s1;
+
+	cout << s1 << endl;
+	cout << s2 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:00:36 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;
+
+	s1.show();
+	s2.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:02:08 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;
+
+	s1.show();
+	s2.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:03:32 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;
+
+	s1.show();
+	s2.show();//같은 주소를 본다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:05:05 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;
+
+	s1.show();
+	s2.show();	//같은 주소를 본다.
+				//소멸자에서 에러발생
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:14:40 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;	// s1을 복사하여 s2를 생성힌다.
+						// My_string (const My_string& other)
+						// 초기화할 기회가 있다.
+
+	s1.show();
+	s2.show();	// 댕글링 포인터를 없애자! => 깊은 복사
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:15:55 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;	
+	My_string s3{ "오늘은 11월 2일 월요일" };
+
+	s1.show();
+	s2.show();	
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:16:16 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;	
+	My_string s3{ "오늘은 11월 2일 월요일" };
+
+	s3 = s1;
+
+	s1.show();
+	s2.show();	
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:18:54 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;	
+	My_string s3{ "오늘은 11월 2일 월요일" };
+
+	s3 = s1;	// 또 같은 메모리를 받는다
+				//프로그램하지 않으면 default '='동작이 실행됨 
+				//My_string& operator=(const My_string& 원본);
+				//이 함수에서 깊은 복사가 되도록 코딩한다.
+
+	//모두 메모리 주소가 달라야함
+	s1.show();
+	s2.show();	
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 7:30:38 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당(대입) 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;	
+	My_string s3{ "오늘은 11월 2일 월요일" };
+
+	s3 = s1;	// 또 같은 메모리를 받는다
+				//프로그램하지 않으면 default '='동작이 실행됨 
+				//My_string& operator=(const My_string& 원본);
+				//이 함수에서 깊은 복사가 되도록 코딩한다.
+
+	//모두 메모리 주소가 달라야함
+	s1.show();
+	s2.show();	
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:03:49 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "0123456789" };
+	My_string s2 = s1;	
+	My_string s3{ "오늘은 11월 2일 월요일" };
+
+	//s3 = s1;	
+	s3.operator=(s1); //정식 표기
+
+	//모두 메모리 주소가 달라야함
+	s1.show();
+	s2.show();	
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:08:02 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	cout << 1 << 2 << 3 << endl;	//꿀(?) 문법
+	((cout.operator<<(1).operator<<(2)).operator<<(3)) << endl;//실제 표현
+	cout.operator<<(100);	//사실 cout도 라이브러리에 정의된 객체이다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:11:03 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "123" };
+	My_string s2{ "456" };
+	My_string s3{ "789" };
+
+	s1 = s2 = s3;	//s2=s3하고 s1=(s2=s3) 순서이다.
+
+	s1.show();
+	s2.show();
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:14:00 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "123" };
+	My_string s2{ "456" };
+	My_string s3{ "789" };
+
+	s1 = s2 = s3;	//s2=s3하고 s1=(s2=s3) 순서이다.
+					// s2.operator=함수의 리턴값(자기자신을 리턴)이 없었다면 s1이 789로 바뀌지 못하였을 것이다.
+
+	s1.show();
+	s2.show();
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:14:44 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "123" };
+	My_string s2{ "456" };
+	My_string s3{ "789" };
+
+	//s1 = s2 = s3;	//s2=s3하고 s1=(s2=s3) 순서이다.
+					// s2.operator=함수의 리턴값(자기자신을 리턴)이 없었다면 s1이 789로 바뀌지 못하였을 것이다.
+	s1.operator=(s2.operator=(s3));
+
+	s1.show();
+	s2.show();
+	s3.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:20:13 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "123" };
+
+	s1 = s1;
+
+	s1.show();	//잉? 123이 안나옴
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:22:00 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "123" };
+
+	//s1 = s1;	//syntactic sugar => 가독성을 위해 쓰기 쉽게 바꾼 것
+	s1.operator=(s1);	//순서를 잘 보면 먼저 기존 메모리를 날려버림 그후 그 메모리를 읽으니 값이 안나오는 것임
+
+	s1.show();	//잉? 123이 안나옴
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 8:30:02 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "123" };
+
+	s1 = s1 = s1 = s1;
+	 
+	s1.show();	//123
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 9:02:30 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [문제] My_string을 30개 생성하자.
+// default 생성시 글자수는 랜덤으로([1,50]), 글자는 임의의 알파벳으로 채우자.
+// 30개의 My_string을 길이 오름차순으로 정렬하자.
+// 잘 되었는지 출력하여 확인하자.
+
+int main()
+{
+	My_string str[30];
+
+	for (My_string ms : str)	// 값을 쓰고 지우고를 반복하게됨 => 복사할 필요 없게 만들자! 
+		ms.show();
+
+	cout << "계속하려면 키를 입력: ";
+	char ch;
+	cin >> ch;
+
+	//num기준 정렬
+
+	//다시 출력
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 9:06:05 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [문제] My_string을 30개 생성하자.
+// default 생성시 글자수는 랜덤으로([1,50]), 글자는 임의의 알파벳으로 채우자.
+// 30개의 My_string을 길이 오름차순으로 정렬하자.
+// 잘 되었는지 출력하여 확인하자.
+
+int main()
+{
+	My_string str[30];
+
+	for ( const My_string& ms : str)	// 복사 하지 않고 메모리 값을 바꾸지도 않고 값만 가져와 사용 
+		ms.show();
+
+	cout << "계속하려면 키를 입력: ";
+	char ch;
+	cin >> ch;
+
+	//num기준 정렬
+
+	//다시 출력
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 9:10:05 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [문제] My_string을 30개 생성하자.
+// default 생성시 글자수는 랜덤으로([1,50]), 글자는 임의의 알파벳으로 채우자.
+// 30개의 My_string을 길이 오름차순으로 정렬하자.
+// 잘 되었는지 출력하여 확인하자.
+
+int main()
+{
+	My_string str[30];
+
+	for ( const My_string& ms : str)	// 복사 하지 않고 메모리 값을 바꾸지도 않고 값만 가져와 사용 
+		ms.show();
+
+	cout << "정렬하려면 키를 입력: ";
+	char ch;
+	cin >> ch;
+
+	//num기준 정렬
+	sort(begin(str), end(str), [](const My_string& a, const My_string& b) {
+		return a.num < b.num;
+		});
+
+	//다시 출력
+	for (const My_string& ms : str)	 
+		ms.show();
+
+	cout << "끝내려면 키를 누르시오: ";
+	cin >> ch;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 9:10:47 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [문제] My_string을 300개 생성하자.
+// default 생성시 글자수는 랜덤으로([1,50]), 글자는 임의의 알파벳으로 채우자.
+// 300개의 My_string을 길이 오름차순으로 정렬하자.
+// 잘 되었는지 출력하여 확인하자.
+
+int main()
+{
+	My_string str[300];
+
+	for ( const My_string& ms : str)	// 복사 하지 않고 메모리 값을 바꾸지도 않고 값만 가져와 사용 
+		ms.show();
+
+	cout << "정렬하려면 키를 입력: ";
+	char ch;
+	cin >> ch;
+
+	//num기준 정렬
+	sort(begin(str), end(str), [](const My_string& a, const My_string& b) {
+		return a.num < b.num;
+		});
+
+	//다시 출력
+	for (const My_string& ms : str)	 
+		ms.show();
+
+	cout << "끝내려면 키를 누르시오: ";
+	cin >> ch;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-06 오후 9:20:06 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주1일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확보했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:39:51 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+struct Cat {};
+
+int main()
+{
+	Cat a{};
+	Cat b;
+	Cat c = a;
+	//디폴트로 잘 돌아감
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:41:10 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+
+int main()
+{
+	My_string a{ "0123456789" };
+
+	a.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:44:41 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+
+int main()
+{
+	My_string a{ "0123456789" };
+
+	a.num = 200;
+
+	a.show();	// 200글짜를 억지로 쓴다. => 원하지 않던 행위...
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:45:19 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+
+int main()
+{
+	My_string a{ "0123456789" };
+
+	a.num = 5;
+
+	a.show();	// 5글자 밖에 안 쓴다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:46:45 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+
+int main()
+{
+	My_string a{ "0123456789" };
+
+	a.p = a.p + 2;	// 현재 시작 포인터를 2더 움직여라
+
+	a.show();	// 23456789**
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:47:43 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+
+int main()
+{
+	My_string a{ "0123456789" };
+
+	a.p = a.p + 2;	// 현재 시작 포인터를 2더 움직여라
+
+	a.show();	// 23456789** => 정상 종료 안됨
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:48:37 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+
+int main()
+{
+	save("소스.cpp");
+
+	My_string a{ "0123456789" };
+
+	a.num = 0;
+	a.p = a.p + 2;	// 현재 시작 포인터를 2더 움직여라
+
+	a.show();	// 종료가 아예 안됨
+
+	
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:51:28 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+//	=> struct의 경우 아래와 같이 멤버변수에 접근하여 갚을 쉽게 바꿀 수 가 있다..
+//	===> 따라서 class가 발명되었다!! => 객체를 보호(은닉)해줌 => 객체 지향 프로그램!
+
+int main()
+{
+	My_string a{ "0123456789" };
+
+	//a.num = 0;
+	//a.p = a.p + 2;	// 현재 시작 포인터를 2더 움직여라
+
+	a.show();	// 종료가 아예 안됨
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:55:24 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+class My_string {
+private:		// access specifier
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+public:
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+//	=> struct의 경우 아래와 같이 멤버변수에 접근하여 갚을 쉽게 바꿀 수 가 있다..
+//	===> 따라서 class가 발명되었다!! => 객체를 보호(은닉)해줌 => 객체 지향 프로그램!
+
+int main()
+{
+	My_string a{ "0123456789" };	// [10글짜][주소-번지]
+
+	//a.num = 0;		 => 빨간줄이 됨
+	//a.p = a.p + 2;	 => private로 묶어 놔서 외부에서 접근 금지 되어 있다.
+
+	a.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 5:57:31 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include <string>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+default_random_engine dre;	//5kb라서 지역으로 선언 해서 쓰지 말자...
+uniform_int_distribution<> uid_num{ 1,50 };
+uniform_int_distribution<> uid_char{ 'a','z' };
+
+struct My_string {					// struct에 private를 쓰는 건 미친짓! struct는 예전부터 public, private, protected 를 안쓰고 쓰기로 약속하고 써옴(약속!)
+private:		// access specifier
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+
+public:
+	My_string() {
+		num = uid_num(dre);
+		p = new char[num];
+		for (int i = 0; i < num; ++i)
+			p[i] = uid_char(dre);
+	}
+
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];	//프리 공간(최대2G정도)
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void*)p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+	//복사 생성자
+	My_string(const My_string& 원본) {
+		num = 원본.num;
+		// num만큼 새 메모리를 요청한다.
+		p = new char[num];
+		// 할당받은 메모리에 원본의 데이터를 복사한다. => 깊은 복사
+		memcpy(p, 원본.p, num);
+	}
+
+	//복사 할당 연산자
+	My_string& operator=(const My_string& other) {	//My_string을 반환하는 연산자(함수)
+		// 나를 나에게 할당하면 안된다. (다른 메모리를 읽을 우려)
+		if (this == &other) {
+			cout << "같은걸 대입하시려고요?" << endl;
+			return *this;	// 나 자신 리턴
+		}
+		//이미 생성되있던 메모리를 먼저 버려준다.
+		cout << "operator= ";
+		this -> ~My_string(); //this는 나 자신을 뜻
+
+		num = other.num;
+		p = new char[num];
+		memcpy(p, other.p, num);
+
+		return *this;	//*는 간접 참조 연산자
+		// 나 자신을 리턴
+	}
+
+	int size() const { // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const {
+		cout << (void*)p << " --> ";
+
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// [질문] struct와 class의 차이점??
+//	=> struct의 경우 아래와 같이 멤버변수에 접근하여 갚을 쉽게 바꿀 수 가 있다..
+//	===> 따라서 class가 발명되었다!! => 객체를 보호(은닉)해줌 => 객체 지향 프로그램!
+
+int main()
+{
+	My_string a{ "0123456789" };	// [10글짜][주소-번지]
+
+	//a.num = 0;		 => 빨간줄이 됨
+	//a.p = a.p + 2;	 => private로 묶어 놔서 외부에서 접근 금지 되어 있다.
+
+	a.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:07:46 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+
+	}
+};
+
+int main()
+{
+	Dog dog;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:08:26 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+
+	}
+};
+
+int main()
+{
+	Dog dog[5];	//5번 짖음
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:15:04 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+int main()
+{
+	Dog dog;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:16:48 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+int main()
+{
+	Dog* p = new Dog;	// 메모리가 소멸이 안되는 걸 확인 할 수 있다 
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:17:21 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+int main()
+{
+	Dog* p = new Dog;	
+
+	save("소스.cpp");
+
+	delete p;
+}
+
+
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:32:17 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+int main()
+{
+	Dog* p = new Dog;	// 생성 - 멍멍
+
+	Dog a = *p;	//복사 - 왕왕
+
+	save("소스.cpp");
+
+	delete p;	//소멸 - 낑낑
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:40:08 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+void f(Dog){}
+
+int main()
+{
+	Dog dog;
+
+	f(dog);	// 복사 생성한다. => 낑낑 소리(소멸) 두번
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:41:11 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+void f(Dog& ){}	// 복사 안한다!
+
+int main()
+{
+	Dog dog;
+
+	f(dog);	// 낑낑 소리(소멸) 한번
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:43:12 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+Dog f(Dog& a) {
+	return a;	// Dog를 복사해서 리턴 => 낑낑소리 발생
+}
+
+int main()
+{
+	Dog dog;
+
+	f(dog);
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:44:20 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+Dog& f(Dog& a) {	//Dog& f() => 리턴값 복사 막기
+	return a;	
+}
+
+int main()
+{
+	Dog dog;
+
+	f(dog);
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:47:08 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+int main()
+{
+	Dog dog[2];
+
+	for (Dog a : dog); //복사-소멸 두번 반복
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:47:55 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	다음시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//소리 재생
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+
+class Dog {
+public:
+	Dog(){
+		cout << "Dog 메모리가 만들어진 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개짖는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	Dog(const Dog&) {
+		cout << "Dog 메모리가 복사 생성된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개왕왕소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+
+	~Dog() {
+		cout << "Dog 메모리가 소멸된 후 이 함수가 호출됨" << endl;
+		PlaySound(/*파일경로->*/L"개낑낑대는소리.wav", 0, SND_FILENAME | SND_SYNC);
+	}
+};
+
+int main()
+{
+	Dog dog[2];
+
+	for (const Dog& a : dog); 
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:54:27 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	cout << 1;	//int와 다르게 cout이 파란색이 아님 => cpp 표준이 아니라 누군가 만든것!(using namespace std를 없애보면 앎)
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 6:56:55 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	//cout << 1; => 대표적 꿀 문법
+	// 정식표기
+	cout.operator<<(1); // cout도 결국 int를 받는 class이다.
+						//operator<<가 멤버 함수
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:02:19 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	cout << 1 << 2 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:05:53 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 사용자가 정의한 자료형에서
+//	if( 생성시 자원을 확했다면){
+//		소멸자에서 자원을 반환해야 한다.
+//		복사생성자에게 깊은 복사를 해야 한다.
+//		복사 할당 연산자도 깊은 복사가 되도록 프로그램해야한다.
+//	}
+//	else //생성 안했다면 => 메모리를 잡지 않은 상태라면 아무것도 안하기 떄문
+//		아무것도 안해도 된다.
+//
+//	기존 자료형(int-꿀 문법)가 하는 것과 같이 각종 연산자를 내가 만든 자료형에서도 사용할 수 있는데
+//	실제는 이건 다 함수를 호출하는 것이다.
+//
+//	이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	//cout << 1 << 2 << endl; -> 번역해서 출력해준것
+	((cout.operator<<(1)).operator<<(2)).operator<<(endl);
+	//cout.operator<<가 '1'을 출력하고 다시 자기자신 cout클래스를 리턴해서 그 바로다음 2를 출력 할 수 있었던 것 임
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:20:35 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+};
+
+//		a			+			b
+//	 operand	 operator	 operand
+//			  binary operator
+
+//++a,a-- => unary operator
+
+//a+b; => 를 계산하기위해 다음과 같은 순서로 확인한다.
+//			1. operator+(INT,INT); -> 다음과 같은 전역함수가 존재하는가?
+//			2. a.operator+(INT);   -> a의 멤버함수로 다음과 같은 함수가 존재하니?
+
+//이때 c = a + b => 리턴값까지 받아야한다.
+//			1. INT operator+(INT,INT); 
+//			2. INT a.operator+(INT);  
+
+int main()
+{
+	INT a{};	//a의 값은 0
+	INT b{ 3 };	//b의 값은 3
+
+	//INT c = a + b;	//c의 값은 3
+
+	// a + b를 cpp 컴파일러는 어떻게 해석할까? => operator+(INT,INT)함수를 찾는다.
+	//c.show();	//3을 찍어야함
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:26:36 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+};
+
+//		a			+			b
+//	 operand	 operator	 operand
+//			  binary operator
+
+//++a,a-- => unary operator
+
+//a+b; => 를 계산하기위해 다음과 같은 순서로 확인한다.
+//			1. operator+(INT,INT); -> 다음과 같은 전역함수가 존재하는가?
+//			2. a.operator+(INT);   -> a의 멤버함수로 다음과 같은 함수가 존재하니?
+
+//이때 c = a + b => 리턴값까지 받아야한다.
+//			1. INT operator+(INT,INT); 
+//			2. INT a.operator+(INT);  
+
+
+int main()
+{
+	// 근데 보통 객체의 크기는 1,2,4,8 바이트를 안 맞춘다.
+	cout << sizeof(cout) << endl;
+	cout << sizeof(cin) << endl;
+	cout << sizeof(INT) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:27:29 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+};
+
+//		a			+			b
+//	 operand	 operator	 operand
+//			  binary operator
+
+//++a,a-- => unary operator
+
+//a+b; => 를 계산하기위해 다음과 같은 순서로 확인한다.
+//			1. operator+(INT,INT); -> 다음과 같은 전역함수가 존재하는가?
+//			2. a.operator+(INT);   -> a의 멤버함수로 다음과 같은 함수가 존재하니?
+
+//이때 c = a + b => 리턴값까지 받아야한다.
+//			1. INT operator+(INT,INT); 
+//			2. INT a.operator+(INT);  
+
+
+int main()
+{
+	// 근데 보통 객체의 크기는 1,2,4,8 바이트를 안 맞춘다.
+	cout << sizeof(default_random_engine) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:34:16 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	//전역함수 INT operator+(const INT&, const INT&)가 num에 접근하기 위해 쓰는 함수
+	// getter 라고 부름
+	int getNum() const {
+		return num;
+	};
+
+	void show() const {
+		cout << num << endl;
+	}
+};
+
+//		a			+			b
+//	 operand	 operator	 operand
+//			  binary operator
+
+//++a,a-- => unary operator
+
+//a+b; => 를 계산하기위해 다음과 같은 순서로 확인한다.
+//			1. operator+(INT,INT); -> 다음과 같은 전역함수가 존재하는가?
+//			2. a.operator+(INT);   -> a의 멤버함수로 다음과 같은 함수가 존재하니?
+
+//이때 c = a + b => 리턴값까지 받아야한다.
+//			1. INT operator+(INT,INT); 
+//			2. INT a.operator+(INT);  
+
+// [1]번 방법
+//선언
+INT operator+(const INT&, const INT&);	// 인자로 받는 값들은 읽기만
+										// 객체의 크기는 대체로 크기가 크므로 복사하지 않는 것을 전제로 사용
+//정의
+INT operator+(const INT& lhs, const INT& rhs) {
+	return INT{ lhs.getNum() + rhs.getNum() };
+}
+
+
+int main()
+{
+	INT a{};	//a의 값은 0
+	INT b{ 3 };	//b의 값은 3
+
+	INT c = a + b;	//c의 값은 3
+
+	// a + b를 cpp 컴파일러는 어떻게 해석할까? => operator+(INT,INT)함수를 찾는다.
+	c.show();	//3을 찍어야함
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:34:51 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	//전역함수 INT operator+(const INT&, const INT&)가 num에 접근하기 위해 쓰는 함수
+	// getter 라고 부름
+	int getNum() const {
+		return num;
+	};
+
+	void show() const {
+		cout << num << endl;
+	}
+};
+
+//		a			+			b
+//	 operand	 operator	 operand
+//			  binary operator
+
+//++a,a-- => unary operator
+
+//a+b; => 를 계산하기위해 다음과 같은 순서로 확인한다.
+//			1. operator+(INT,INT); -> 다음과 같은 전역함수가 존재하는가?
+//			2. a.operator+(INT);   -> a의 멤버함수로 다음과 같은 함수가 존재하니?
+
+//이때 c = a + b => 리턴값까지 받아야한다.
+//			1. INT operator+(INT,INT); 
+//			2. INT a.operator+(INT);  
+
+// [1]번 방법
+//선언
+INT operator+(const INT&, const INT&);	// 인자로 받는 값들은 읽기만
+										// 객체의 크기는 대체로 크기가 크므로 복사하지 않는 것을 전제로 사용
+//정의
+INT operator+(const INT& lhs, const INT& rhs) {
+	return INT{ lhs.getNum() + rhs.getNum() };
+}
+
+
+int main()
+{
+	INT a{};	//a의 값은 0
+	INT b{ 3 };	//b의 값은 3
+
+	INT c = a + b + b + b + b + b + a;
+	//INT c = INT(INT(INT(INT(INT(INT(a+b)+b)+b)+b)+b)+a);
+
+	// a + b를 cpp 컴파일러는 어떻게 해석할까? => operator+(INT,INT)함수를 찾는다.
+	c.show();	//3을 찍어야함
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:46:22 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {	// 이항 연산자이므로 a+b에서 a는 이미 인자로 있는거나 마찬가지 
+		return INT{ num + rhs.num };	// getter를 필요로 하지 않음
+	}
+};
+
+// [2]번 방법 (+1번의 전역함수가 같이 있으면 충돌이 일어나므로 하나만 써야 한다!)
+// 보통 2번 방법(멤버 함수)을 많이 쓴다. (getter가 필요 없으며 코딩이 더 짧고 보기 좋다.) 
+
+int main()
+{
+	INT a{};	//a의 값은 0
+	INT b{ 3 };	//b의 값은 3
+
+	INT c = a + b;
+
+	// a + b를 cpp 컴파일러는 어떻게 해석할까? => operator+(INT,INT)함수를 찾는다.
+	c.show();	//3을 찍어야함
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:49:00 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {	
+		return INT{ num + rhs.num };	
+	}
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	int a = 1;
+
+	cout << ++a << endl;	//2
+
+	a = 1;
+	cout << ++ ++ ++ ++ ++a << endl;	//6
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:49:43 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {	
+		return INT{ num + rhs.num };	
+	}
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	int a = 1;
+
+	cout << ++a << endl;	//2
+
+	a = 1;
+	cout << ++ ++ ++ ++ ++a << endl;	//6
+
+	a = 1;
+	cout << -++a << endl;	//-1
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 7:50:23 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {	
+		return INT{ num + rhs.num };	
+	}
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	int a = 1;
+
+	cout << ++a << endl;	//2
+
+	a = 1;
+	cout << a++ << endl;	//1
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-08 오후 8:03:48 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(9주2일)
+//
+// 이번시간 - 연산자 오버로딩
+//			 - struct와 class의 차이점?
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{0};
+
+public:
+	INT() = default;
+	INT(int n):num{n}{}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {	
+		return INT{ num + rhs.num };	
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	INT a = 1;
+
+	//(++a).show;
+	//(a++).show;
+
+	save("소스.cpp");
+}

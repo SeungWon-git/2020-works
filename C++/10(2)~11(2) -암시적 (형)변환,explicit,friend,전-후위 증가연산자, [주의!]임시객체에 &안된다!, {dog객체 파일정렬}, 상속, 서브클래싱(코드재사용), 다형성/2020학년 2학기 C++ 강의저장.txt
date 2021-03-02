@@ -1,0 +1,2569 @@
+
+
+
+----------------------------------------------
+소스.cpp - 2020-11-16 오후 2:35:18 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(10주2일)
+//
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+	INT(int n) :num{ n } {}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	INT a = 1;
+
+	//(++a).show;
+	//(a++).show;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-16 오후 2:39:26 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(10주2일)
+//
+// 시험3 예정 - 15주 1/2일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+	INT(int n) :num{ n } {}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	INT a = 1;
+
+	a.show();
+
+	//(++a).show;
+	//(a++).show;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-16 오후 2:40:59 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(10주2일)
+//
+// 시험3 예정 - 15주 1/2일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+	INT(int n) :num{ n } {}
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	//INT a = 1; 는 사실
+
+	INT a = (INT)INT((int)1); //로 바뀌어 들어가는 것과 같다.
+
+	a.show();
+
+	//(++a).show;
+	//(a++).show;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-16 오후 2:43:32 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(10주2일)
+//
+// 시험3 예정 - 15주 1/2일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	explicit INT(int n) :num{ n } {} //explicit는 암시적 변환을 막는다. 
+									//따라서 INT a = 1;이 안된다.
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	//INT a = 1; 는 사실
+
+	INT a = (INT)INT((int)1); //로 바뀌어 들어가는 것과 같다. 
+	//-> 이렇게 바꿔주는 것을 '암시적 변환'이라 부름
+
+	a.show();
+
+	//(++a).show;
+	//(a++).show;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-16 오후 2:53:21 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(10주2일)
+//
+// 시험3 예정 - 15주 1/2일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{
+	INT a = 1; 
+
+	cout << 1 << 2 << endl;				//홀문법(꿀문법)
+	cout.operator<<(1).operator<<(2);	//사실은 이렇게 생김
+
+	//그럼 이거도 살릴수 있을것이다.
+	//cout << a << endl;
+	//cout << ++a << endl;
+
+	//(++a).show;
+	//(a++).show;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-17 오전 3:43:54 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+/*
+class cout {
+	//멤버 함수로 어떻게 출력될지가 정의되어있다.
+	operator<<(int);	//123
+	operator<<(float);	//1.23
+	operator<<(double);	//1.23
+	operator<<(short);	//123
+
+	operator<<(Dog);	//나이:3 , 이름: 멍멍이 -> 할수가 없다! (이미 약속되어있는 것만 사용가능!)
+	operator<<(char);	// ㄱ,a,b,아랍어,러시아어 등등 문자는 출력 될수있는 경우가 너무 많아서 안된다!
+	//실제 char는 형태가많다. (char 치고 밑으로 내려봄 앎)
+};*/
+
+int main()
+{
+	//INT a = 1; 
+	//INT b = 2;
+	//INT c = a + b;	// INT c = add( a,b ); <- 보다 이해하기 좋다.
+
+	//cout << c << endl;
+
+	cout.operator<<(1).operator<<(2) << endl;	//class cout으로 선언되있는 것
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-17 오전 3:46:36 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	INT operator+(const INT& rhs)const {
+		return INT{ num + rhs.num };
+	}
+
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+int main()
+{
+	//INT a = 1; 
+	//INT b = 2;
+	//INT c = a + b;	// INT c = add( a,b ); <- 보다 이해하기 좋다.
+
+	//cout << c << endl;
+
+	cout << 'a' << '2' << endl;
+	operator<<((operator<<(cout, 'a')), '2').operator<< (endl);
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-17 오전 4:00:30 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	void show() const {
+		cout << num << endl;
+	}
+
+	int getNum()const {
+		return num;
+	}
+
+	//INT를 화면에 cout으로 출력해야 하는데 연산자는 아직 안 배웠으므로
+	//INT를 잘 알려진 타입으로 변신시켜 임시변통
+	operator int() {
+		return num;
+	}
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+INT operator+(const INT&, const INT&);
+
+INT operator+(const INT& a, const INT& b) 
+{
+	return INT{ (a.getNum() + b.getNum()) };
+};
+
+int main()
+{
+	INT a = 1;		// [1]
+	INT b = 2;		// [2]
+	
+	INT c = a + b;	// [3]
+	//방법1
+	//INT operator+(const INT&, const INT&); => 전역함수 만들기
+	//방법2
+	// INT c =a.operator+(b);
+
+	cout << c << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-17 오전 4:07:49 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	// 보통 연산자는 클래스의 멤버함수로 구현한다.
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//INT를 화면에 cout으로 출력해야 하는데 연산자는 아직 안 배웠으므로
+	//INT를 잘 알려진 타입으로 변신시켜 임시변통
+	operator int() {
+		return num;
+	}
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+int main()
+{
+	INT a = 1;		
+	INT b = 2;		
+	
+	INT c = a + b;
+	//방법2
+	// INT c =a.operator+(b);	=> 멤버함수로 만들기 (모든 이들이 이해하고 쓰기 쉬운 형태! 전역으로 만들지 X)
+
+	cout << c << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 3:58:10 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	// 보통 연산자는 클래스의 멤버함수로 구현한다.
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	int getNum()const {
+		return num;
+	}
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+ostream& operator<<(ostream&, const INT&);	// operator<<는 이항 연산자로 cout의 형태인 ostream과 INT를 받으면 된다.
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.getNum();
+	return os;
+}
+
+int main()
+{
+	INT a = 1;		
+	INT b = 2;		
+	
+	INT c = a + b;
+
+	cout << c << endl;	//제대로 구현
+						//=> 1. cout.operator<<(INT) => X 안됨을 이미 확임함
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:03:01 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	// 보통 연산자는 클래스의 멤버함수로 구현한다.
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//자주 쓰는 함수를 친구로 선언하면 겟터 필요X 
+	//(단 데이터를 감추려는 행위를 안해도 될때 사용 - 지금처럼 읽고 출력 할때처럼)
+	// 함부로 사용하면 위험!
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+int main()
+{
+	INT a = 1;		
+	INT b = 2;		
+	
+	INT c = a + b;
+
+	cout << c << endl;	//제대로 구현
+						//=> 1. cout.operator<<(INT) => X 안됨을 이미 확임함
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:05:34 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	// 보통 연산자는 클래스의 멤버함수로 구현한다.
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//자주 쓰는 함수를 친구로 선언하면 겟터 필요X 
+	//(단 데이터를 감추려는 행위를 안해도 될때 사용 - 지금처럼 읽고 출력 할때처럼)
+	// 함부로 사용하면 위험!
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+int main()
+{
+	INT a = 1;		
+	INT b = 2;		
+	
+	INT c = a + b + 232 + 24235 + 325468;
+
+	cout << c << endl;	//제대로 구현
+						//=> 1. cout.operator<<(INT) => X 안됨을 이미 확임함
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:06:15 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	// 보통 연산자는 클래스의 멤버함수로 구현한다.
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//자주 쓰는 함수를 친구로 선언하면 겟터 필요X 
+	//(단 데이터를 감추려는 행위를 안해도 될때 사용 - 지금처럼 읽고 출력 할때처럼)
+	// 함부로 사용하면 위험!
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+// [문제] 단항 연산자를 구현해보자
+
+// [문제] int와 유사하게 동작하는 class INT를 만들며 연산자 오버로딩을 연습한다.
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+int main()
+{
+	INT a = 1;		
+	INT b = 2;		
+	
+	//INT c = a + b + 232 + 24235 + 325468;
+	INT c = a + b + INT(232) + 24235 + 325468;	//암시적인 형변환
+
+	cout << c << endl;	//제대로 구현
+						//=> 1. cout.operator<<(INT) => X 안됨을 이미 확임함
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:11:36 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	INT& operator++() {
+		++num;
+		return *this;
+	}
+
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{	
+	INT a = 1;
+
+	//cout << ++a << endl;	//전위증가
+	cout << ++a << endl;	
+	//cout << a.operator++() << endl; 같은 뜻
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:18:57 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	INT& operator++() {
+		++num;
+		return *this;
+	}
+
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{	
+	INT a = 1;
+
+	cout << ++ ++ ++ ++ ++a << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:20:27 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	INT& operator++() {
+		++num;
+		return *this;
+	}
+
+	INT& operator하하하() {
+		--num;
+		return *this;
+	}
+
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{	
+	INT a = 1;
+
+	cout << a.operator하하하() << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:34:12 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//전위 증가
+	INT& operator++() {
+		++num;
+		return *this;
+	}
+
+	//후위증가
+	INT operator++(int) {
+		//내 현재 상태를 저장한다.
+		INT temp(*this);
+		//나를 1증가시킨다.
+		++(*this);
+		//내 이전 값을 돌려준다.
+		return temp;	//<중요!> 임시 객체를 돌려줄때는 &가 사용 불가
+						//이유 - 메모리를 차지하고 있지 않기 때문! (지역을 벗어나면 해제되므로 참조 불가능!!!)
+	}
+	/*
+	[+] for(int i=0;i<0;i++)를 안 쓰는 이유!!
+		=> i++은 임시 객체를 생성하기 때문!
+		=> 이때 지금처럼 정수일때는 상관 없긴하지만 
+			만약 DOG i 같이 사용자 정의 객체(복잡한 데이터 타입)라면 문제가 발생한다!
+	*/
+
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{	
+	INT a = 1;
+
+	//a++,++a의 차이(약속)
+	//[전위증가] ++a => operator++()
+	//[후위증가] a++ => operator++(int) <- operator++까지는 같을 수 밖에 없어 이렇게 약속!
+
+	//후위 증가
+	cout << a++ << endl;	//1
+	cout << a << endl;	//2
+	//cout<< a.operator++(0)<<endl; -> 같은 뜻
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:37:01 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//전위 증가
+	INT& operator++() {
+		++num;
+		return *this;
+	}
+
+	//후위증가
+	INT operator++(int) {
+		//내 현재 상태를 저장한다.
+		INT temp(*this);
+		//나를 1증가시킨다.
+		++(*this);
+		//내 이전 값을 돌려준다.
+		return temp;	//<중요!> 임시 객체를 돌려줄때는 &가 사용 불가
+						//이유 - 메모리를 차지하고 있지 않기 때문! (지역을 벗어나면 해제되므로 참조 불가능!!!)
+	}
+	/*
+	[+] for(int i=0;i<0;i++)를 안 쓰는 이유!!
+		=> i++은 임시 객체를 생성하기 때문!
+		=> 이때 지금처럼 정수일때는 상관 없긴하지만 
+			만약 DOG i 같이 사용자 정의 객체(복잡한 데이터 타입)라면 문제가 발생한다!
+	*/
+
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{	
+	INT a = 1;
+
+	//cout << a++ ++ << endl; => (int)a++ ++ 가 안되는 이유: 임시객체를 다시 ++ (접근)할수 없기 떄문!
+	
+	cout << a++ ++ ++ << endl; // 엥? 근데 이건 가능하네? (근데 찍는 값은 2로 나오네;;) => 문법적으로 위험하니 막자!
+	cout << a << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:39:24 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class INT {
+	int num{ 0 };
+
+public:
+	INT() = default;
+
+	INT(int n) :num{ n } {} 
+
+	INT operator+(const INT& rhs) const{
+		return (num + rhs.num);
+	}
+
+	//전위 증가
+	INT& operator++() {
+		++num;
+		return *this;
+	}
+
+	//후위증가
+	const INT operator++(int) {	//변경 금지!
+		//내 현재 상태를 저장한다.
+		INT temp(*this);
+		//나를 1증가시킨다.
+		++(*this);
+		//내 이전 값을 돌려준다.
+		return temp;	
+	}
+
+	friend ostream& operator<<(ostream&, const INT&);
+};
+
+ostream& operator<<(ostream&, const INT&);
+
+ostream& operator<<(ostream& os, const INT& i) {
+	os << i.num;
+	return os;
+}
+
+// [문제] 단항 연산자를 구현해보자
+
+int main()
+{	
+	INT a = 1;
+
+	//cout << a++ ++ << endl; => (int)a++ ++ 가 안되는 이유: 임시객체를 다시 ++ (접근)할수 없기 떄문!
+	
+	cout << a++ /*++ ++*/ << endl; // 엥? 근데 이건 가능하네? => 문법적으로 위험하니 막자!
+	// => "const" INT operator++(int)
+	cout << a << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:42:42 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+
+
+int main()
+{	
+	//아래가 가능 하게 만들어보자
+	//String a{ "123" };
+	//String b{ "4567890" };
+	//String c = a + b;
+
+	string a{ "123" };
+	string b{ "4567890" };
+	string c = a + b;
+
+	cout << c << endl;
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:57:43 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class String {
+	int num;
+	char* p;
+public:
+	String() {
+		num = 0;
+		p = nullptr;	//NULL pointer
+	} 
+
+	String(const char* s) {
+		num = strlen(s);
+		p = new char[num];
+		for (int i = 0; i < num; ++i) {
+			p[i] = s[i];
+		}
+	}
+
+	~String() {
+		delete[] p;
+	}
+
+	String operator+(const String& rhs) const {
+		String temp;
+		temp.num = num + rhs.num;
+		temp.p = new char[temp.num];
+
+		for (int i = 0; i < num; ++i) 
+			temp.p[i] = p[i];
+
+		for (int i = 0; i < rhs.num; ++i)
+			temp.p[num + i] = rhs.p[i];
+		
+		return temp;
+	}
+
+	friend ostream& operator<<(ostream&, const String&);
+};
+
+ostream& operator<<(ostream& os, const String& s) {
+	for (int i = 0; i < s.num; ++i)
+		os << s.p[i];
+
+	return os;
+}
+
+
+int main()
+{	
+	//아래가 가능 하게 만들어보자
+	String a{ "123" };		//[3][p]  -> [1][2][3]
+	String b{ "4567890" };	//[7][p]  -> [4][5][6][7][8][9][0]
+	String c = a + b;		//[10][p] -> [1][2][3][4][5][6][7][8][9][0]
+
+	cout << c << endl;	// ostream& operator<<(ostream&,const String&);
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:58:28 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class String {
+	int num;
+	char* p;
+public:
+	String() {
+		num = 0;
+		p = nullptr;	//NULL pointer
+	} 
+
+	String(const char* s) {
+		num = strlen(s);
+		p = new char[num];
+		for (int i = 0; i < num; ++i) {
+			p[i] = s[i];
+		}
+	}
+
+	~String() {
+		delete[] p;
+	}
+
+	String operator+(const String& rhs) const {
+		String temp;
+		temp.num = num + rhs.num;
+		temp.p = new char[temp.num];
+
+		for (int i = 0; i < num; ++i) 
+			temp.p[i] = p[i];
+
+		for (int i = 0; i < rhs.num; ++i)
+			temp.p[num + i] = rhs.p[i];
+		
+		return temp;
+	}
+
+	friend ostream& operator<<(ostream&, const String&);
+};
+
+ostream& operator<<(ostream& os, const String& s) {
+	for (int i = 0; i < s.num; ++i)
+		os << s.p[i];
+
+	return os;
+}
+
+
+int main()
+{	
+	//아래가 가능 하게 만들어보자
+	String a{ "123 \n 454613215684161 \t 18+61613215+aㅇ너랴" };		//[3][p]  -> [1][2][3]
+	String b{ "0000\n123456789\n되니??" };	//[7][p]  -> [4][5][6][7][8][9][0]
+	String c = a + b;		//[10][p] -> [1][2][3][4][5][6][7][8][9][0]
+
+	cout << c << endl;	// ostream& operator<<(ostream&,const String&);
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 4:59:57 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class String {
+	int num;
+	char* p;
+public:
+	String() {
+		num = 0;
+		p = nullptr;	//NULL pointer
+	} 
+
+	String(const char* s) {
+		num = strlen(s);
+		p = new char[num];
+		for (int i = 0; i < num; ++i) {
+			p[i] = s[i];
+		}
+	}
+
+	~String() {
+		delete[] p;
+	}
+
+	String operator+(const String& rhs) const {
+		String temp;
+		temp.num = num + rhs.num;
+		temp.p = new char[temp.num];
+
+		for (int i = 0; i < num; ++i) 
+			temp.p[i] = p[i];
+
+		for (int i = 0; i < rhs.num; ++i)
+			temp.p[num + i] = rhs.p[i];
+		
+		return temp;
+	}
+
+	friend ostream& operator<<(ostream&, const String&);
+};
+
+ostream& operator<<(ostream& os, const String& s) {
+	for (int i = 0; i < s.num; ++i)
+		os << s.p[i];
+
+	return os;
+}
+
+
+int main()
+{	
+	//아래가 가능 하게 만들어보자
+	String a = "123";	
+	String b = "4567890";
+	String c = a + b;	
+
+	cout << c << endl;	// ostream& operator<<(ostream&,const String&);
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 5:07:52 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//						 => 원하는 자료형이 기존 연산자에 지원이 안되기 때문 
+//
+//	다음시간은 상속으로 ...
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+};
+
+// [문제] Dog객체 10'000개를 파일 "Dog만개"를 저장한다.
+
+int main()
+{	
+	Dog dog;
+
+	dog.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 5:09:02 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//						 => 원하는 자료형이 기존 연산자에 지원이 안되기 때문 
+//
+//	다음시간은 상속으로 ...
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+};
+
+// [문제] Dog객체 10'000개를 파일 "Dog만개"를 저장한다.
+
+int main()
+{	
+	Dog dogs[100];
+
+	for(Dog& dog:dogs)
+		dog.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-18 오후 5:12:25 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주1일)
+//
+//	operator overloading - 왜 사용하지?
+//						 => 원하는 자료형이 기존 연산자에 지원이 안되기 때문 
+//
+//	다음시간은 상속으로 ...
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+};
+
+// [문제] Dog객체 10'000개를 파일 "Dog만개"를 저장한다.
+
+// [문제] 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+
+int main()
+{	
+	Dog dog;
+
+	ofstream out("Dog만개");
+	//out << dog;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 3:54:15 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+// [문제] Dog객체 10'000개를 파일 "Dog만개"를 저장한다.
+
+// [문제] 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+
+int main()
+{
+	ofstream out("Dog만개");
+	//파일 만들때는 검사할 필요 없다 -> 실패할 수 없기 때문(설령 이미 존재한다해도 덮어쓰기)
+
+	Dog dog;
+
+	cout << dog << endl;	//출력-확인
+	out << dog << endl;	//저장
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 3:56:34 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+// [문제] Dog객체 10'000개를 파일 "Dog만개"를 저장한다.
+
+// [문제] 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+
+int main()
+{
+	ofstream out("Dog만개.txt");	//확장자 정해줄 수 있다.
+	//파일 만들때는 검사할 필요 없다 -> 실패할 수 없기 때문(설령 이미 존재한다해도 덮어쓰기)
+
+	for (int i = 0; i < 10'000; ++i) {
+		Dog dog;
+		out << dog << endl;
+	}
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 4:01:49 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 읽어 이름 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	save("소스.cpp");
+
+	ifstream in("Dog만개");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		exit(12345689);	//시스템 반환 - main반환이랑 같음
+		
+	}
+
+	
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 4:02:09 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 읽어 이름 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	save("소스.cpp");
+
+	ifstream in("Dog만개");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		//exit(12345689);	//시스템 반환 - main반환이랑 같음
+		return -123456789;
+	}
+
+	
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 4:06:04 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+	friend istream& operator>>(istream&, Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+istream& operator>>(istream& is, Dog& dog)
+{
+	is >> dog.id >> dog.name;	//+ 공백은 자동 넘어가 다음을 읽는다.
+	return is;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 읽어 이름 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	ifstream in("Dog만개.txt");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		exit(0);	//시스템 반환 - main반환이랑 같음
+	}
+
+	Dog dog;
+	//in >> dog; //파일에서 읽어 저장
+	cin >> dog;	//먼저 사용자에게 읽어 저장해보자
+
+	cout << dog << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 4:12:19 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+	friend istream& operator>>(istream&, Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+istream& operator>>(istream& is, Dog& dog)
+{
+	is >> dog.id >> dog.name;	//+ 공백은 자동 넘어가 다음을 읽는다.
+	return is;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 모두 읽어 이름 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	ifstream in("Dog만개.txt");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		exit(0);	//시스템 반환 - main반환이랑 같음
+	}
+
+	Dog dog;
+
+	int i = 0;
+	while (in >> dog) {
+		cout << ++i << "----" <<dog << endl;
+	}
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 4:15:31 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+	friend istream& operator>>(istream&, Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+istream& operator>>(istream& is, Dog& dog)
+{
+	is >> dog.id >> dog.name;	//+ 공백은 자동 넘어가 다음을 읽는다.
+	return is;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 모두 읽어 이름 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	ifstream in("Dog만개.txt");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		exit(0);	//시스템 반환 - main반환이랑 같음
+	}
+
+	Dog* dogs = new Dog[10'000];
+
+	int i = 0;
+	while (in >> dogs[i++]) {
+		;
+	}
+
+	//  확인
+	cout << dogs[0] << endl;
+	cout << dogs[10'000 - 1] << endl;
+
+	delete[] dogs;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 5:00:21 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	string_view getName() const {	// string_view 는 string와 하는 역활은 같으나 복사하지는 않고 바라 보기만 함. 
+							// (만약 빨간 줄이 뜬다면 속성에 일반-C++표준- 17년 기준으로 바꾸기)
+		return name;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+	friend istream& operator>>(istream&, Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+istream& operator>>(istream& is, Dog& dog)
+{
+	is >> dog.id >> dog.name;	//+ 공백은 자동 넘어가 다음을 읽는다.
+	return is;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 모두 읽어 이름 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	ifstream in("Dog만개.txt");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		exit(0);	//시스템 반환 - main반환이랑 같음
+	}
+
+	Dog* dogs = new Dog[10'000];	//[][][][][][][] ... 이런식으로 붙어 있다.
+
+	cout << "파일 읽는 중" << endl;
+	int i = 0;
+	while (in >> dogs[i++]) 
+		;
+	
+	// 정렬
+	// [+] 배열의 끝위치는 9'999가 아닌 10'000이다!
+	cout << "정렬 중" << endl;
+	sort(&dogs[0] , &dogs[10'000] , [](const Dog& a,const Dog& b) /*-> bool*/ { // 자동으로 리턴 타입을 비주얼이 바꿔줌!
+		return a.getName().size() < b.getName().size();
+		});	
+
+	cout << "정렬이 끝났습니다. 아무키나 누르세요. (결과확인)" << endl;
+	char ch;
+	cin >> ch;
+
+	for (int i = 0; i < 10000; ++i)
+		cout << dogs[i] << endl;
+
+	delete[] dogs;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오전 5:02:32 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include <random>
+#include <fstream>
+#include <algorithm>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid;
+uniform_int_distribution<> uid_len{ 1,30 };
+uniform_int_distribution<> uid_alpha{ 'a','z' };
+
+class Dog {
+	int id;		//임의의 정수
+	string name;	//이름의 길이는 [1~30], 전부 임의의 소문자
+
+public:
+	Dog() {
+		id = uid(dre);
+		for (int i = 0; i < uid_len(dre); ++i)
+			name += uid_alpha(dre);
+	}
+
+	void show() const {
+		cout << id << " - " << name << endl;
+	}
+
+	string_view getName() const {	// string_view 는 string와 하는 역활은 같으나 복사하지는 않고 바라 보기만 함. 
+							// (만약 빨간 줄이 뜬다면 속성에 일반-C++표준- 17년 기준으로 바꾸기)
+		return name;
+	}
+
+	int getId() const {	
+		return id;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+	friend istream& operator>>(istream&, Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog) 
+{
+	os << dog.id << '\t' << dog.name;
+	return os;
+}
+
+istream& operator>>(istream& is, Dog& dog)
+{
+	is >> dog.id >> dog.name;	//+ 공백은 자동 넘어가 다음을 읽는다.
+	return is;
+}
+
+// [문제] e-class에 파일 "Dog만개"에 있는 Dog를 읽어와서 물음에 답하시오.
+// Dog 10000만 객체의 정보를 모두 읽어 id 오름차순으로 정렬 후 화면에 출력하기오.
+
+int main()
+{
+	ifstream in("Dog만개.txt");
+	if (!in) {
+		cout << "파일을 열지 못했습니다." << endl;
+		exit(0);	//시스템 반환 - main반환이랑 같음
+	}
+
+	Dog* dogs = new Dog[10'000];	//[][][][][][][] ... 이런식으로 붙어 있다.
+
+	cout << "파일 읽는 중" << endl;
+	int i = 0;
+	while (in >> dogs[i++]) 
+		;
+	
+	// 정렬
+	// [+] 배열의 끝위치는 9'999가 아닌 10'000이다!
+	cout << "정렬 중" << endl;
+	sort(&dogs[0] , &dogs[10'000] , [](const Dog& a,const Dog& b) /*-> bool*/ { // 자동으로 리턴 타입을 비주얼이 바꿔줌!
+		return a.getId() < b.getId();
+		});	
+
+	cout << "정렬이 끝났습니다. 아무키나 누르세요. (결과확인)" << endl;
+	char ch;
+	cin >> ch;
+
+	for (int i = 0; i < 10000; ++i)
+		cout << dogs[i] << endl;
+
+	delete[] dogs;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 2:41:12 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class A {};
+
+class B {
+	A a1;
+	A a2[10];	//(타클래스)A와 관계를 맺게됨
+
+	void f(A);
+	B g();	//B를 리턴
+};
+
+class 아버지{};
+
+class 아들 : 아버지 {
+	//아버지 f;	//-> 이런방식으론 상속을 표현하지 못한다.그래서 위와 같이 새로운 문법!
+};
+
+int main()
+{
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 3:06:05 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [코드 재사용]
+// 상속을 이용하면 문제사항을 코드 재활용으로 해결할 수 있다.
+class STRING : public string {	//클래스의 기본은 프라이빗이므로 퍼블릭으로 바꿔준다.(+protected는 상속에만 쓰임)
+
+};
+
+
+int main()
+{
+	STRING a{ "abcde" };	//모두 대문자로 바꿔 저장
+	STRING b{ "fghij" };
+	//STRING c = a + b;
+
+	//cout << c << endl;
+
+	cout << sizeof(a) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 3:07:38 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [코드 재사용]
+// 상속을 이용하면 문제사항을 코드 재활용으로 해결할 수 있다.
+class STRING : public string {	//클래스의 기본은 프라이빗이므로 퍼블릭으로 바꿔준다.(+protected는 상속에만 쓰임)
+
+};
+
+
+int main()
+{
+	STRING a{ "abcde" };	//모두 대문자로 바꿔 저장
+	STRING b{ "fghij" };
+	//STRING c = a + b;
+
+	//cout << c << endl;
+	
+	string a1;
+	STRING a2;
+
+	cout << sizeof(a1) << endl;
+	cout << sizeof(a2) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 3:26:32 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [코드 재사용]
+// 상속을 이용하면 문제사항을 코드 재활용으로 해결할 수 있다.
+class STRING : public string {	//클래스의 기본은 프라이빗이므로 퍼블릭으로 바꿔준다.(+protected는 상속에만 쓰임)
+public:
+	STRING(const char* s) : string{ s } {
+		cout << size() << endl;
+	}
+};
+
+
+int main()
+{
+	STRING a{ "abcde" };	//모두 대문자로 바꿔 저장
+	STRING b{ "fghij" };
+	//STRING c = a + b;
+
+	//cout << c << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 3:28:54 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [코드 재사용]
+// 상속을 이용하면 문제사항을 코드 재활용으로 해결할 수 있다.
+class STRING : public string {	//클래스의 기본은 프라이빗이므로 퍼블릭으로 바꿔준다.(+protected는 상속에만 쓰임)
+public:
+	STRING(const char* s) : string{ s } {
+		for (int i = 0; i < size(); ++i) {
+			operator[](i) = toupper(operator[](i));	//operator[](i)는 i번째 문자 뜻 
+		}
+	}
+};
+
+
+int main()
+{
+	STRING a{ "abcde" };	//모두 대문자로 바꿔 저장
+	STRING b{ "fghij" };
+
+	cout << a << endl;
+
+	//STRING c = a + b;
+
+	//cout << c << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 3:29:18 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [코드 재사용]
+// 상속을 이용하면 문제사항을 코드 재활용으로 해결할 수 있다.
+class STRING : public string {	//클래스의 기본은 프라이빗이므로 퍼블릭으로 바꿔준다.(+protected는 상속에만 쓰임)
+public:
+	STRING(const char* s) : string{ s } {
+		for (int i = 0; i < size(); ++i) {
+			operator[](i) = toupper(operator[](i));	//operator[](i)는 i번째 문자 뜻 
+		}
+	}
+};
+
+
+int main()
+{
+	STRING a{ "abcde" };	//모두 대문자로 바꿔 저장
+	STRING b{ "fghij" };
+
+	cout << a + b << endl;
+
+	//STRING c = a + b;
+
+	//cout << c << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-19 오후 3:31:52 - (목요일)
+----------------------------------------------
+
+//2020.2학기 C++															(11주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [코드 재사용]
+// 상속을 이용하면 문제사항을 코드 재활용으로 해결할 수 있다.
+class STRING : public string {	//클래스의 기본은 프라이빗이므로 퍼블릭으로 바꿔준다.(+protected는 상속에만 쓰임)
+public:
+	STRING(const char* s) : string{ s } {
+		for (int i = 0; i < size(); ++i) {
+			operator[](i) = toupper(operator[](i));	//operator[](i)는 i번째 문자 뜻 
+		}
+	}
+};
+
+//다음시간 - 상속시 메모리/함수호출 관계를 관찰해본다.
+
+int main()
+{
+	STRING a{ "abcde" };	//모두 대문자로 바꿔 저장
+	STRING b{ "fghij" };
+
+	//STRING c = a + b;
+
+	//cout << c << endl;
+
+	save("소스.cpp");
+}
