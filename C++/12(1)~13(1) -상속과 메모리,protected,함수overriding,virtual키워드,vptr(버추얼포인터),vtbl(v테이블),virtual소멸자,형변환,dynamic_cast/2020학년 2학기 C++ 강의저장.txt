@@ -1,0 +1,2078 @@
+
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:06:35 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class 부모 {
+	int 부모정수;		//4바이트
+};
+
+class 자식 : public 부모 {
+	int 자식정수;		//4바이트
+};
+
+
+int main()
+{
+	자식 child;	//child가 차지하는 메모리 크기는? => 8바이트!(상속받는 클래스의 메모리를 같이 할당)
+
+	cout << sizeof(child) << endl;	//[부모정수][자식정수] - 8
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:16:33 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class 부모 {
+	int 부모정수;		//4바이트
+
+public:
+	void set부모정수(int n) {
+		부모정수 = n;
+	}
+
+	int get부모정수()const {
+		return 부모정수;
+	}
+};
+
+class 자식 : public 부모 {
+	int 자식정수;		//4바이트
+
+public:
+	자식() {
+		자식정수 = 456;
+		set부모정수(123);
+	}
+
+	friend ostream& operator<<(ostream&, const 자식&);
+};
+
+ostream& operator<<(ostream& os, const 자식& child) 
+{
+	//[부모정수 - 123],[자식정수 - 456]
+	cout << "[부모정수-" << child.get부모정수() << "],[자식정수-" << child.자식정수 << "]" << endl;
+
+	return os;
+}
+
+// 생성과 소멸을 관찰
+
+// [문제] main()을 수정하지 않고 (class는 변경가능)
+// 요구하는 출력이 나오도록 하자
+
+
+int main()
+{
+	자식 child;	// -> 자식()
+				// [123][456]
+
+	cout << child << endl;		//[부모정수 - 123],[자식정수 - 456] 이 나오게
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:20:21 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class 부모 {
+protected:				// 여기 멤버는 자식이 자신의 private 멤버처럼 사용가능하게 함!
+	int 부모정수;	
+};
+
+class 자식 : public 부모 {
+	int 자식정수;		
+
+public:
+	자식() {
+		자식정수 = 456;
+		부모정수 = 123;		// -> getter와 setter 필요 X
+	}
+
+	friend ostream& operator<<(ostream&, const 자식&);
+};
+
+ostream& operator<<(ostream& os, const 자식& child) 
+{
+	//[부모정수 - 123],[자식정수 - 456]
+	cout << "[부모정수-" << child.부모정수 << "],[자식정수-" << child.자식정수 << "]" << endl;
+
+	return os;
+}
+
+// 생성과 소멸을 관찰
+
+// [문제] main()을 수정하지 않고 (class는 변경가능)
+// 요구하는 출력이 나오도록 하자
+
+
+int main()
+{
+	자식 child;	// -> 자식()
+				// [123][456]
+
+	cout << child << endl;		//[부모정수 - 123],[자식정수 - 456] 이 나오게
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:30:57 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class Animal {
+protected:
+	int a;
+
+public:
+	Animal() {
+		cout << "Animal 생성" << endl;
+	}
+	~Animal() {
+		cout << "Animal 소멸" << endl;
+	}
+};
+
+class Dog: public Animal{
+	int d;
+public:
+	Dog(int a, int b) {
+		Animal::a = a;
+		d = b;
+		cout << "Dog 생성" << endl;
+	}
+	~Dog() {
+		cout << "Dog 소멸" << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog)
+{
+	os << "dog - " << dog.a << ", " << dog.d;
+	return os;
+}
+
+// [문제] main을 바꾸지 말고 원하는 결과가 나오도록 class를 코딩한다.
+// * 이때 객체의 생성과 소멸을 관찰하시오.
+
+int main()
+{
+	Dog dog{123,456};	//이때 생성자를 호출할 수 있다.
+
+	cout << dog << endl;	//dog -123,456
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:32:38 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class Animal {
+protected:
+	int a;
+
+public:
+	Animal() {
+		cout << "Animal 생성" << endl;
+	}
+	~Animal() {
+		cout << "Animal 소멸" << endl;
+	}
+};
+
+class Dog: public Animal{
+	int d;
+public:
+	Dog(int a, int b) {
+		Animal::a = a;
+		d = b;
+		cout << "Dog 생성" << endl;
+	}
+	~Dog() {
+		cout << "Dog 소멸" << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog)
+{
+	os << "dog - " << dog.a << ", " << dog.d;
+	return os;
+}
+
+// [문제] main을 바꾸지 말고 원하는 결과가 나오도록 class를 코딩한다.
+// * 이때 객체의 생성과 소멸을 관찰하시오.
+
+int main()
+{
+	{
+		Dog dog{ 123,456 };	//이때 생성자를 호출할 수 있다.
+	}
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:34:04 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+class Animal {
+protected:
+	int a;
+
+public:
+	Animal() {
+		cout << "Animal 생성" << endl;
+	}
+	~Animal() {
+		cout << "Animal 소멸" << endl;
+	}
+};
+
+class Dog: public Animal{
+	int d;
+public:
+	Dog(int a, int b) {
+		Animal::a = a;
+		d = b;
+		cout << "Dog 생성" << endl;
+	}
+	~Dog() {
+		cout << "Dog 소멸" << endl;
+	}
+
+	friend ostream& operator<<(ostream&, const Dog&);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog)
+{
+	os << "dog - " << dog.a << ", " << dog.d;
+	return os;
+}
+
+// [문제] main을 바꾸지 말고 원하는 결과가 나오도록 class를 코딩한다.
+// * 이때 객체의 생성과 소멸을 관찰하시오.
+
+int main()
+{	
+	Dog* dog = new Dog { 123123,456456 };
+	
+	cout << *dog << endl;
+
+	save("소스.cpp");
+
+	delete dog;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:54:41 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 다음을 class로 만들어 보세요.
+// Animal은 모두 이름이 있다. 모두 move() 할 수 있다.
+// Dog는 Animal이다.
+// Bird도 Animal이다.
+
+class Animal {
+protected:
+	string name;
+
+public:
+	void move() {
+		cout << name << "가 움직인다." << endl;
+	};
+};
+
+class Dog : public Animal {
+public:
+	Dog(string dog) {
+		name = dog;
+	}
+};
+
+class Bird : public Animal {
+public:
+	Bird(string bird) {
+		name = bird;
+	}
+
+};
+
+int main()
+{	
+	Dog dog{ "댕댕이" };
+
+	Bird bird{ "짹짹이" };
+
+	dog.move();		//댕댕이가 움직인다.
+	bird.move();	//짹짹이가 움직인다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 6:56:01 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 => '서브 클래싱'이라 부르기도함
+//	2. 다형성(polymorphism)을 구현한다.
+//		'다형성' -> 한가지 명령으로 여러 '다'양한 '형'태를 표현할 수 있는 '성'질
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 다음을 class로 만들어 보세요.
+// Animal은 모두 이름이 있다. 모두 move() 할 수 있다.
+// Dog는 Animal이다.
+// Bird도 Animal이다.
+
+class Animal {
+protected:
+	string name;
+
+public:
+	Animal(string s) : name{s} {}
+
+	void move() {
+		cout << name << "가 움직인다." << endl;
+	};
+};
+
+class Dog : public Animal {
+public:
+	Dog(string dog) : Animal{ dog } {
+	}
+};
+
+class Bird : public Animal {
+public:
+	Bird(string bird) : Animal { bird } {
+	}
+
+};
+
+int main()
+{	
+	Dog dog{ "댕댕이" };
+
+	Bird bird{ "짹짹이" };
+
+	dog.move();		//댕댕이가 움직인다.
+	bird.move();	//짹짹이가 움직인다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:26:57 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 다음을 class로 만들어 보세요.
+// Animal은 모두 이름이 있다. 모두 move() 할 수 있다.
+// Dog는 Animal이다.
+// Bird도 Animal이다.
+
+class Animal {
+protected:
+	string name;
+
+public:
+	Animal(string s) : name{s} {}
+
+	void move() {
+		cout << name << "가 움직인다." << endl;
+	};
+};
+
+class Dog : public Animal {
+public:
+	Dog(string dog) : Animal{ dog } {
+	}
+
+	void move() {	// 부모와 같은 형싱의 함수를 overriding 하였다.
+		cout << name << "가 뛴다." << endl;
+	};
+};
+
+class Bird : public Animal {
+public:
+	Bird(string bird) : Animal { bird } {
+	}
+
+	void move() {	// 부모와 같은 형싱의 함수를 overriding 하였다.
+		cout << name << "가 난다." << endl;
+	};
+};
+
+int main()
+{	
+	Dog dog{ "댕댕이" };
+
+	Bird bird{ "짹짹이" };
+
+	// 이대로 출력하려면?
+	dog.move();		//댕댕이가 뛴다.
+	bird.move();	//짹짹이가 난다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:27:23 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 다음을 class로 만들어 보세요.
+// Animal은 모두 이름이 있다. 모두 move() 할 수 있다.
+// Dog는 Animal이다.
+// Bird도 Animal이다.
+
+class Animal {
+protected:
+	string name;
+
+public:
+	Animal(string s) : name{s} {}
+
+	void move() {
+		cout << name << "가 움직인다." << endl;
+	};
+};
+
+class Dog : public Animal {
+public:
+	Dog(string dog) : Animal{ dog } {
+	}
+
+	void move() {	// 부모와 같은 형싱의 함수를 overriding 하였다.
+		cout << name << "가 뛴다." << endl;
+	};
+};
+
+class Bird : public Animal {
+public:
+	Bird(string bird) : Animal { bird } {
+	}
+
+	void move() {	// 부모와 같은 형싱의 함수를 overriding 하였다.
+		cout << name << "가 난다." << endl;
+	};
+};
+
+int main()
+{	
+	Dog dog{ "댕댕이" };
+
+	Bird bird{ "짹짹이" };
+
+	dog.move();		// 컴파일러는 어떤 move를 호출하는 코드를 생성해야 하지?
+					// class Dog의 move()를 호출한다. (없으면 ->) 조상의 move()를 호출한다.
+	bird.move();	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:34:12 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+
+};
+
+class Dog :public Animal {
+
+};
+
+// 상속관계에서 언제나 참인 관계
+// sizeof(Animal) <= sizeof(Dog)
+
+int main()
+{	
+	cout << boolalpha << (sizeof(Animal) <= sizeof(Dog)) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:36:32 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+	int a;
+
+public:
+	void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+	int d;
+
+public:
+	void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Animal a;	//[a]
+	Dog d;		//[a][d]
+
+	a.move();
+	d.move();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:39:56 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+	int a;
+
+public:
+	void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+	int d;
+
+public:
+	void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Animal a;	//[a]
+	Dog d;		//[a][d]
+
+	// [문제] 맞는 답을 고르시오. 
+	// 1. Animal의 메모리에는 Dog의 메모리가 포함된다.
+	// 2. Dog의 메모리에는 Animal의 메모리가 포함된다. <- 정답
+	cout << "Animal의 메모리크기 - " << sizeof(Animal) << endl;
+	cout << "Dog의 메모리크기 - " << sizeof(Dog) << endl;
+		
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:43:15 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+protected:
+	int a;
+
+public:
+	void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+	int d;
+
+public:
+	void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Animal a;	//[a]
+	Dog d;		//[a][d]
+
+	// Dog의 메모리에는 Animal의 메모리가 포함된다.
+	Dog* pd = &d;	//pd => [a][d]에서 a를 가리킴
+	pd->move();
+
+	pd++;			//pd => [a][d]에서 d다음 메로리를 가리킴 (type(Dog)만큼 이동하기 때문)
+	pd->move();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:48:05 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+protected:
+	int a;
+
+public:
+	void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+	int d;
+
+public:
+	void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Animal a;	//[a]
+	Dog d;		//[a][d]
+
+	// Dog의 메모리에는 Animal의 메모리가 포함된다.
+	Animal* pa = &d;	//Animal포인터에 Dog를 시켜본다.
+	pa->move();			//어떤 move를 실행시킬까? -> pa는 Animal포인터라서 Animal.move를 실행
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:51:57 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+protected:
+	int a;
+
+public:
+	// 진짜(원하는) 함수를 찾아 호출하고 싶다면 앞에 virtual을 붙인다.
+	virtual void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+	int d;
+
+public:
+	void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Animal a;	//[a]
+	Dog d;		//[a][d]
+
+	Animal* pa = &d;	// 부모인 Animal 포인터로 자식인 Dog를 가리킨다.
+	// Animal의 모든 자식 객체들을 Animal*로 가리킬 수 있다.
+
+	pa->move();			//다형성이 구현되도록 하고 싶다.
+	//Dog의 move() 를 찍음
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-02 오후 7:56:03 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+protected:
+	int a;
+
+public:
+	// 진짜(원하는) 함수를 찾아 호출하고 싶다면 앞에 virtual을 붙인다.
+	// C++에서 다형성을 구현하는 핵심 키워드 "virtual"
+	// 만들어지는 모든 객체마다 포인터 하나가 추가된다.
+	virtual void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+	int d;
+
+public:
+	/*부모에 virtual이 있으면 자식에는 자동으로 붙음*/ void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Animal a;	//[v][a]
+	Dog d;		//[v][a][d]
+
+	// virtual이 있는 상황
+	cout << "Animal의 크기 - " << sizeof(Animal) << endl;	// 4
+	cout << "Dog의 크기 - " << sizeof(Dog) << endl;			// 8
+															// virtual을 붙이니 4바이트씩 더 커짐
+
+	Animal* pa = &d;	// 부모인 Animal 포인터로 자식인 Dog를 가리킨다.
+	// Animal의 모든 자식 객체들을 Animal*로 가리킬 수 있다.
+
+	pa->move();			//다형성이 구현되도록 하고 싶다.
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:37:29 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	// 진짜(원하는) 함수를 찾아 호출하고 싶다면 앞에 virtual을 붙인다.
+	// C++에서 다형성을 구현하는 핵심 키워드 "virtual"
+	// 만들어지는 모든 객체마다 포인터 하나가 추가된다.
+	virtual void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+public:
+	/*부모에 virtual이 있으면 자식에는 자동으로 붙음*/ void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+class Bird :public Animal {
+public:
+	void move() {
+		cout << "Bird의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Dog dog;
+	Bird bird;
+
+	dog.move();
+	bird.move(); // 다형성은 아니다. -> 명령하나로 개는 달리고 새는 날아야함
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:40:19 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	// 진짜(원하는) 함수를 찾아 호출하고 싶다면 앞에 virtual을 붙인다.
+	// C++에서 다형성을 구현하는 핵심 키워드 "virtual"
+	// 만들어지는 모든 객체마다 포인터 하나가 추가된다.
+	virtual void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+public:
+	/*부모에 virtual이 있으면 자식에는 자동으로 붙음*/ void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+class Bird :public Animal {
+public:
+	void move() {
+		cout << "Bird의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Dog dog;
+	Bird bird;
+
+	Animal* animals[2];
+
+	animals[0] = &dog;
+	animals[1] = &bird;
+
+	for (Animal* 동물 : animals)
+		동물->move();		// 내가 동물이 뭔지는 모르겠는데 움직여봐! (다형성)
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:47:11 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	// 진짜(원하는) 함수를 찾아 호출하고 싶다면 앞에 virtual을 붙인다.
+	// C++에서 다형성을 구현하는 핵심 키워드 "virtual"
+	// 만들어지는 모든 객체마다 포인터 하나가 추가된다.
+	virtual void move() {
+		cout << "Animal의 move()" << endl;
+	}
+};
+
+class Dog :public Animal {
+public:
+	/*부모에 virtual이 있으면 자식에는 자동으로 붙음*/ void move() {
+		cout << "Dog의 move()" << endl;
+	}
+};
+
+class Bird :public Animal {
+public:
+	void move() {
+		cout << "Bird의 move()" << endl;
+	}
+};
+
+
+int main()
+{	
+	Dog dog;		// 안에 아무 자료형이 없는데도 사이즈를 출력해보면 4바이트가 할당되있다.
+	Bird bird;
+
+	//이것은 vptr(버추얼 포인터)를 가지기 때문이다.
+	cout << sizeof(dog) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:49:43 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	cout << "save 함수의 번지 - " << save << endl;	// 번지가 hexa로 출력되는데 앞에 숫자가 같은걸 볼 수 있다.
+							// => 같은 세그먼트에 존재
+
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:51:25 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	cout << "save 함수의 번지 - " << save << endl;	// 번지가 hexa로 출력되는데 앞에 숫자가 같은걸 볼 수 있다.
+	cout << "printf 함수의 번지 - " << &printf << endl;
+
+	printf("이건은 시험입니다.");
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:52:13 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	int n;
+	cout << "스택의 번지 - " << &n << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 5:58:21 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	virtual void move() {
+		cout << "Animal - move()" << endl;
+	}
+};
+
+class Dog : public Animal {
+public:
+	void move() {
+		cout<< "Dog - move()" << endl;
+	}
+};
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	Dog dog;	// Animal의 move()에 virtual 키워드를 안쓰면 1바이트인데 virtual를 쓰면 4바이트가 됨
+				//vptr이 멤버에 추가됨
+	int* p = (int*)&dog;
+	cout << "vtbl(버추얼 테이블)의 주소" << (void*)*p << endl;	//vptr에 적힌 vtbl의 주소값
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:04:58 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	virtual void move() {
+		cout << "Animal - move()" << endl;
+	}
+};
+
+class Dog : public Animal {
+public:
+	void move() {
+		cout<< "Dog - move()" << endl;
+	}
+};
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	Dog dog;	// Animal의 move()에 virtual 키워드를 안쓰면 1바이트인데 virtual를 쓰면 4바이트가 됨
+				//vptr이 멤버에 추가됨
+	int* p = (int*)&dog;
+	cout << "vtbl(버추얼 테이블)의 주소 - " << (void*)*p << endl;	//vptr에 적힌 vtbl의 주소값
+
+	int* pp = (int*)*p;
+	cout << "vtbl에 기록된 move(함수)의 시작번지 - " << (void*)*pp << endl;	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:08:16 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	virtual void move() {
+		cout << "Animal - move()" << endl;
+	}
+};
+
+class Dog : public Animal {
+public:
+	void move() {
+		cout<< "Dog - move()" << endl;
+	}
+};
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	Dog dog;	// Animal의 move()에 virtual 키워드를 안쓰면 1바이트인데 virtual를 쓰면 4바이트가 됨
+				//vptr이 멤버에 추가됨
+	int* p = (int*)&dog;
+	cout << "vtbl(버추얼 테이블)의 주소 - " << (void*)*p << endl;	//vptr에 적힌 vtbl의 주소값
+
+	int* pp = (int*)*p;
+	cout << "vtbl에 기록된 move(함수)의 시작번지 - " << (void*)*pp << endl;	
+
+	void (*fp)() = (void(*)())(*pp);	//함수 포인터 *fp에 (*pp)move의 시작번지를 넣은것
+	fp();		//Dog의 move가 실행됨
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:11:25 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	virtual void move() {
+		cout << "Animal - move()" << endl;
+	}
+	virtual void x() {		//버추얼 함수가 총 2개임으로 8바이트 할당됨
+		cout << "Animal - x()" << endl;
+	}
+};
+
+class Dog : public Animal {
+public:
+	void move() {
+		cout<< "Dog - move()" << endl;
+	}
+};
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	Dog dog;	
+	int* p = (int*)&dog;
+	cout << "vtbl(버추얼 테이블)의 주소 - " << (void*)*p << endl;	
+
+	int* pp = (int*)*p;
+	cout << "vtbl에 기록된 move(함수)의 시작번지 - " << (void*)*pp << endl;	
+
+	pp++;	//주소를 하나 증가시킨다.
+	void (*fp)() = (void(*)())(*pp);
+	fp();		//Animal의 x가 실행됨
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:13:05 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	virtual void move() {
+		cout << "Animal - move()" << endl;
+	}
+	virtual void x() {		//버추얼 함수가 총 2개임으로 8바이트 할당됨
+		cout << "Animal - x()" << endl;
+	}
+};
+
+class Dog : public Animal {
+public:
+	void move() {
+		cout<< "Dog - move()" << endl;
+	}
+};
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	Dog dog;	// Animal의 move()에 virtual 키워드를 안쓰면 1바이트인데 virtual를 쓰면 4바이트가 됨
+				//vptr이 멤버에 추가됨
+	int* p = (int*)&dog;
+	cout << "vtbl(버추얼 테이블)의 주소 - " << (void*)*p << endl;	//vptr에 적힌 vtbl의 주소값
+
+	int* pp = (int*)*p;
+	cout << "vtbl에 기록된 move(함수)의 시작번지 - " << (void*)*pp << endl;	
+
+	void (*fp)() = (void(*)())(*pp);
+	fp();	
+
+	pp++;
+	fp = (void(*)())(*pp);
+	fp();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:14:13 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+class Animal {
+public:
+	virtual void move() {
+		cout << "Animal - move()" << endl;
+	}
+	virtual void x() {		//버추얼 함수가 총 2개임으로 8바이트 할당됨
+		cout << "Animal - x()" << endl;
+	}
+};
+
+class Dog : public Animal {
+public:
+	void move() {
+		cout<< "Dog - move()" << endl;
+	}
+	void x() {		
+		cout << "Dog - x()" << endl;
+	}
+};
+
+int main()
+{	
+	//함수는 CODE 세그먼트에 있다.
+	cout << "main 함수의 번지 - " << main << endl;
+	
+	Dog dog;	// Animal의 move()에 virtual 키워드를 안쓰면 1바이트인데 virtual를 쓰면 4바이트가 됨
+				//vptr이 멤버에 추가됨
+	int* p = (int*)&dog;
+	cout << "vtbl(버추얼 테이블)의 주소 - " << (void*)*p << endl;	//vptr에 적힌 vtbl의 주소값
+
+	int* pp = (int*)*p;
+	cout << "vtbl에 기록된 move(함수)의 시작번지 - " << (void*)*pp << endl;	
+
+	void (*fp)() = (void(*)())(*pp);
+	fp();	
+
+	pp++;
+	fp = (void(*)())(*pp);
+	fp();	//Dog에 x함수를 만들면 Dog의 x를 부름
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:16:53 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// 다형성(polymorphism)이란?
+// One interface - Multiple behavior (단일명령 - 다중행동)
+// 다수의 서로 다른 종류의 객체를 하나로 묶어 관리할 수 있어야 한다.
+
+
+
+int main()
+{
+
+	void* p = &main;
+
+	int(*x)() = (int(*)())p;
+
+	x();	//무한 루프 돌게됨
+	
+	cout << "메인---------------------" << endl;	//실행X
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:32:54 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid{ 0,1 };
+
+class Animal {
+public:
+	virtual void move() const = 0;
+};
+
+class Dog : public Animal {
+public:
+	virtual void move() const override{
+		cout << " <<<<< 개가 달린다." << endl;
+	}
+};
+
+class Bird : public Animal {
+public:
+	virtual void move() const override {
+		cout << " ~~~~~ 새가 난다." << endl;
+	}
+};
+
+// [문제] 사용자 입력을 받아 동물을 생성한다.
+// 1. 몇 마리를 만들지 물어본다.
+// 2. 원하는대로 동물을 생성한다. (랜덤값이 홀수이면 Dog, 짝수 Bird)
+// 3. 모든 동물의 move()를 실행한다.
+// 1~3 과정이 무한 반복될 수 있어야 한다.
+
+// 다음시간에 더 설명할 내용 - 추상 클래스, 소멸자로 virtual로
+int main()
+{
+	cout << "몇 마리를 생성할까요?: ";
+	int num;
+	cin >> num;
+
+	/*auto - 편리하게 자료형 자동 지정가능*/ 
+	//** -> 포인터를 여러개 저장한곳을 지정하는 포인터란 뜻
+	Animal** animals = new	Animal* [num];	// 이렇게 다형성을 구현할때 Animal* 같이 항상 조상의 포인터를 받아야한다.
+
+	for (int i = 0; i < num; ++i) {
+		if (uid(dre) == 1)
+			animals[i] = new Dog;
+		else
+			animals[i] = new Bird;
+	}
+
+	for (int i = 0; i < num; ++i) 
+		animals[i]->move();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-04 오전 6:37:43 - (금요일)
+----------------------------------------------
+
+//2020.2학기 C++															(12주2일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid{ 0,1 };
+
+class Animal {
+public:
+	virtual void move() const = 0;
+};
+
+class Dog : public Animal {
+public:
+	virtual void move() const override{
+		cout << " <<<<< 개가 달린다." << endl;
+	}
+};
+
+class Bird : public Animal {
+public:
+	virtual void move() const override {
+		cout << " ~~~~~ 새가 난다." << endl;
+	}
+};
+
+// [문제] 사용자 입력을 받아 동물을 생성한다.
+// 1. 몇 마리를 만들지 물어본다.
+// 2. 원하는대로 동물을 생성한다. (랜덤값이 홀수이면 Dog, 짝수 Bird)
+// 3. 모든 동물의 move()를 실행한다.
+// 1~3 과정이 무한 반복될 수 있어야 한다.
+
+// 다음시간에 더 설명할 내용 - 추상 클래스, 소멸자로 virtual로
+// 칠판 그림설명에서 다음시간 시작
+int main()
+{
+	save("소스.cpp");
+
+	while (true) {
+		cout << "몇 마리를 생성할까요?: ";
+		int num;
+		cin >> num;
+
+		/*auto - 편리하게 자료형 자동 지정가능*/
+		//** -> 포인터를 여러개 저장한곳을 지정하는 포인터란 뜻
+		Animal** animals = new	Animal * [num];	// 이렇게 다형성을 구현할때 Animal* 같이 항상 조상의 포인터를 받아야한다.
+
+		for (int i = 0; i < num; ++i) {
+			if (uid(dre) == 1)
+				animals[i] = new Dog;
+			else
+				animals[i] = new Bird;
+		}
+
+		for (int i = 0; i < num; ++i)
+			animals[i]->move();
+
+		for (int i = 0; i < num; ++i)
+			delete animals[i];
+
+		delete[] animals;	//여러개 Animals를 지정한 이것까지 삭제해야 빈틈없는 것 
+							// -> 근데 virtual 소멸자를 안해주면 메모리가 센다. (여기서는 일단 돌아감) 
+	}
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-12 오후 3:23:51 - (토요일)
+----------------------------------------------
+
+//2020.2학기 C++															(13주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid{ 0,1 };
+
+class Animal {
+public:
+	virtual void move() const = 0;
+
+	// 만일 부모 클래스인 Animal이 객체 생성 시 자원을 획득했다면
+	// Animal은 소멸자에서 획득한 자원을 반환을 할 것이다.
+	//그렇다면 반드시 소멸자를 virtual로 선언해야만 모든 자원이 
+	// 제대로 소멸된다.
+	
+	virtual ~Animal() {
+		
+	}
+	// 안 그려면 delete Dog를 할시 Dog소멸자를 부르지 않고 Animal소멸자를 자동적으로 부르게됨
+};
+
+class Dog : public Animal {
+public:
+	virtual void move() const override{
+		cout << " <<<<< 개가 달린다." << endl;
+	}
+};
+
+class Bird : public Animal {
+public:
+	virtual void move() const override {
+		cout << " ~~~~~ 새가 난다." << endl;
+	}
+};
+
+// [문제] 사용자 입력을 받아 동물을 생성한다.
+// 1. 몇 마리를 만들지 물어본다.
+// 2. 원하는대로 동물을 생성한다. (랜덤값이 홀수이면 Dog, 짝수 Bird)
+// ***3. 동물 중에 Dog만 move()를 실행한다. 
+// 1~3 과정이 무한 반복될 수 있어야 한다.
+
+// 다음시간에 더 설명할 내용 - 추상 클래스, 소멸자로 virtual로
+// 칠판 그림설명에서 다음시간 시작
+int main()
+{
+	save("소스.cpp");
+
+	while (true) {
+		cout << "몇 마리를 생성할까요?: ";
+		int num;
+		cin >> num;
+
+		/*auto - 편리하게 자료형 자동 지정가능*/
+		//** -> 포인터를 여러개 저장한곳을 지정하는 포인터란 뜻
+		Animal** animals = new	Animal * [num];	// 이렇게 다형성을 구현할때 Animal* 같이 항상 조상의 포인터를 받아야한다.
+
+		for (int i = 0; i < num; ++i) {
+			if (uid(dre) == 1)
+				animals[i] = new Dog;
+			else
+				animals[i] = new Bird;
+		}
+
+		for (int i = 0; i < num; ++i) {
+			//if(animal[i]이 Dog였다면)
+			animals[i]->move();
+		}
+
+		for (int i = 0; i < num; ++i)
+			delete animals[i];
+
+		delete[] animals;	//여러개 Animals를 지정한 이것까지 삭제해야 빈틈없는 것 
+							// -> 근데 virtual 소멸자를 안해주면 메모리가 센다. (여기서는 일단 돌아감) 
+	}
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-12-12 오후 3:35:20 - (토요일)
+----------------------------------------------
+
+//2020.2학기 C++															(13주1일)
+//
+//
+//	[상속]
+//	1. 이미 만든코드를 재사용 
+//	2. 다형성(polymorphism)을 구현한다.
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <random>
+#include "save.h"	
+using namespace std;
+
+default_random_engine dre;
+uniform_int_distribution<> uid{ 0,1 };
+
+class Animal {
+public:
+	virtual void move() const = 0;
+
+	// 만일 부모 클래스인 Animal이 객체 생성 시 자원을 획득했다면
+	// Animal은 소멸자에서 획득한 자원을 반환을 할 것이다.
+	//그렇다면 반드시 소멸자를 virtual로 선언해야만 모든 자원이 
+	// 제대로 소멸된다.
+	
+	virtual ~Animal() {
+		
+	}
+	// 안 그려면 delete Dog를 할시 Dog소멸자를 부르지 않고 Animal소멸자를 자동적으로 부르게됨
+};
+
+class Dog : public Animal {
+public:
+	virtual void move() const override{
+		cout << " <<<<< 개가 달린다." << endl;
+	}
+};
+
+class Bird : public Animal {
+public:
+	virtual void move() const override {
+		cout << " ~~~~~ 새가 난다." << endl;
+	}
+};
+
+// [문제] 사용자 입력을 받아 동물을 생성한다.
+// 1. 몇 마리를 만들지 물어본다.
+// 2. 원하는대로 동물을 생성한다. (랜덤값이 홀수이면 Dog, 짝수 Bird)
+// ***3. 동물 중에 Dog만 move()를 실행한다. 
+// 1~3 과정이 무한 반복될 수 있어야 한다.
+
+// 다음시간에 더 설명할 내용 - 추상 클래스, 소멸자로 virtual로
+// 칠판 그림설명에서 다음시간 시작
+int main()
+{
+	save("소스.cpp");
+
+	while (true) {
+		cout << "몇 마리를 생성할까요?: ";
+		int num;
+		cin >> num;
+
+		/*auto - 편리하게 자료형 자동 지정가능*/
+		//** -> 포인터를 여러개 저장한곳을 지정하는 포인터란 뜻
+		Animal** animals = new	Animal * [num];	// 이렇게 다형성을 구현할때 Animal* 같이 항상 조상의 포인터를 받아야한다.
+
+		for (int i = 0; i < num; ++i) {
+			if (uid(dre) == 1)
+				animals[i] = new Dog;
+			else
+				animals[i] = new Bird;
+		}
+
+		// [표준 형변환 종류]
+		// 1. static_cast
+		// 2. const_cast
+		// 3. reinterpret_cast
+		// 4. dynamic_cast
+
+		for (int i = 0; i < num; ++i) {
+			//if(animal[i]이 Dog였다면)
+			// <자료형*> <- 'template code'
+			// != nullptr은 생략해도 잘돌아간다.
+			// C++은 클래스에 여분의 정보를 "RTTI"기법으로 구현되있다.
+			if(dynamic_cast<Dog*>(animals[i]) != nullptr)	//부모의 포인터(animals[i])를 자식 포인터(<Dog*>)로 바꾸는 것 => [형변환]
+				animals[i]->move();
+		}
+
+		for (int i = 0; i < num; ++i)
+			delete animals[i];
+
+		delete[] animals;	//여러개 Animals를 지정한 이것까지 삭제해야 빈틈없는 것 
+							// -> 근데 virtual 소멸자를 안해주면 메모리가 센다. (여기서는 일단 돌아감) 
+	}
+}

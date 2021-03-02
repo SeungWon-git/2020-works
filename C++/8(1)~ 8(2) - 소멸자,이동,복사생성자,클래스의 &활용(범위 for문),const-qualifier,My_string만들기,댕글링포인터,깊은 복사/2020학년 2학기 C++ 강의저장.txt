@@ -1,0 +1,2517 @@
+
+
+
+----------------------------------------------
+소스.cpp - 2020-10-27 오후 2:10:27 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+
+using Test = int;
+
+int main()
+{
+	Test a{ 1 };
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-27 오후 2:11:19 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+
+struct Test {
+	int n;
+};
+
+int main()
+{
+	Test a{ 1 };
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-27 오후 2:11:43 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+
+struct Test {
+	Test(int) {};
+};
+
+int main()
+{
+	Test a{ 1 };
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-27 오후 2:15:59 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n{1};
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	Test a;
+	a.show();	//Test::show() - 1
+
+	Test b{123};
+	b.show();	//Test::show() - 123
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-27 오후 2:18:00 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n{1};
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	{
+		Test a;
+		a.show();	//Test::show() - 1
+	}
+	{	//지역으로 감싸면 a를 다시 써도 충돌안함!
+		Test a{ 123 };
+		a.show();	//Test::show() - 123
+	}
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-27 오후 2:23:58 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	{
+		Test a;		//4바이트 생성 - [][][][1] <=> Test()
+		a.show();	//Test::show() - 1
+	}
+	{	//지역으로 감싸면 a를 다시 써도 충돌안함!
+		Test a{ 123 };	// Test(int)
+		a.show();		//Test::show() - 123
+	}
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:18:31 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	cout << "-------------메인 시작-------------------" << endl;
+
+	Test a{ 123 };
+
+	
+	// <<중요한 사실!>> 
+	//  사실 생성자가 생성(메모리)을 하지않고 소멸자도 소멸시키는것이 아니다. - 확인만 시켜줄 뿐...(오해ㄴㄴ)
+	//  (메모리 접근은 프로그래머가 접근할 수 있는 권한 밖)  
+
+	
+	save("소스.cpp");
+	cout << "-------------메인 종료-------------------" << endl;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:20:27 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	cout << "-------------메인 시작-------------------" << endl;
+
+	{
+		Test a{ 123 };
+	}//지역으로 감싸면 지역내에서 생성,소멸됨
+	
+	// <<중요한 사실!>> 
+	//  사실 생성자가 생성(메모리)을 하지않고 소멸자도 소멸시키는것이 아니다. - 확인만 시켜줄 뿐...(오해ㄴㄴ)
+	//  (메모리 접근은 프로그래머가 접근할 수 있는 권한 밖)  
+
+	
+	save("소스.cpp");
+	cout << "-------------메인 종료-------------------" << endl;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:21:43 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	cout << "-------------메인 시작-------------------" << endl;
+
+	Test { 123 }; // 지역으로 감싸았던 것 같이 이자리에서 생성,소멸됨 
+	
+	// <<중요한 사실!>> 
+	//  사실 생성자가 생성(메모리)을 하지않고 소멸자도 소멸시키는것이 아니다. - 확인만 시켜줄 뿐...(오해ㄴㄴ)
+	//  (메모리 접근은 프로그래머가 접근할 수 있는 권한 밖)  
+
+	
+	save("소스.cpp");
+	cout << "-------------메인 종료-------------------" << endl;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:24:14 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	cout << "-------------메인 시작-------------------" << endl;
+
+	(Test { 123 }).show();	// 생성 후 show함수 실행하고 바로 소멸됨 
+	
+	// <<중요한 사실!>> 
+	//  사실 생성자가 생성(메모리)을 하지않고 소멸자도 소멸시키는것이 아니다. - 확인만 시켜줄 뿐...(오해ㄴㄴ)
+	//  (메모리 접근은 프로그래머가 접근할 수 있는 권한 밖)  
+
+	save("소스.cpp");
+	cout << "-------------메인 종료-------------------" << endl;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:24:52 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+Test a{ 1 }; // 프로그램이 종료될때 소멸됨
+ 
+int main()
+{
+	cout << "-------------메인 시작-------------------" << endl;
+	save("소스.cpp");
+	cout << "-------------메인 종료-------------------" << endl;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:35:11 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+// <핵심 질문 내용>
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//   - 메모리의 값을 어떻게 초기화하지?		-특별하게(special fuction)
+//
+// [초기화]란 생성과 동시에 값을 지정해주는 것이다.
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+// [문제] main()을 수정하지 않고 다음이 실행되도록 하여라
+// Test는 사용자가 정의한 자료형이다.
+// show() 결과가 의도된대로 나타나야한다.
+// 객체의 생성, 소멸을 관찰하라.
+
+struct Test {
+	int n;
+
+	Test() :n {1} {	//이것이 명시적으로 더 좋은 방법
+		cout << "디폴트 생성" << endl;
+	}
+
+	Test(int n) :n { n } {
+		cout << "Test(int) 생성" << endl;
+	}
+
+	~Test()	//소멸자
+	{
+		cout << "Test 소멸 - " << n << endl;
+	}
+
+	void show() {
+		cout << "Test::show() - " << n << endl;
+	}
+};
+
+int main()
+{
+	cout << "-------------메인 시작-------------------" << endl;
+	{
+		static Test a{ 1 };	// 정적 변수(메모리)는 지역으로 감싸도 메인을 빠져 나간 후(파일 밖으로 나간 후가 정확)에 소멸됨
+	}
+	save("소스.cpp");
+	cout << "-------------메인 종료-------------------" << endl;
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:48:54 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Test {
+	Test() = default;						//생성자
+	~Test() = default;						//소멸자
+	Test(const Test&) = default;			//복사 생성자
+	Test& operator=(const Test&) = default;	//복사 대입	연산자
+	Test(Test&&) = default;					//이동 생성자
+	Test& operator=(Test&&) = default;		//이동 할당 연산자
+
+	// 다음 6개의 함수를 컴파일러가 자동으로 알아서 필요에따라 만들어줌
+};
+
+int main()
+{
+	Test a;	// Test();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:49:47 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Test {
+	Test() = delete;						//생성자
+	~Test() = default;						//소멸자
+	Test(const Test&) = default;			//복사 생성자
+	Test& operator=(const Test&) = default;	//복사 대입	연산자
+	Test(Test&&) = default;					//이동 생성자
+	Test& operator=(Test&&) = default;		//이동 할당 연산자
+
+	// 다음 6개의 함수를 컴파일러가 자동으로 알아서 필요에따라 만들어줌
+};
+
+int main()
+{
+	//Test a;	=> 만약 special 함수가 없다면 생성되지 않는다!
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:52:46 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Test {
+	int n;
+	Test() = default;						//생성자
+	~Test() = default;						//소멸자
+	Test(const Test&) = default;			//복사 생성자
+	Test& operator=(const Test&) = default;	//복사 대입	연산자
+	Test(Test&&) = default;					//이동 생성자
+	Test& operator=(Test&&) = default;		//이동 할당 연산자
+
+	// 다음 6개의 함수를 컴파일러가 자동으로 알아서 필요에따라 만들어줌
+};
+
+int main()
+{
+	Test a;	
+	Test b{ 123 };
+
+	Test c = b;	//복사 생성
+	a = c;		//복사 대입
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:54:23 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include <string>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	string s1{ "C++ 언어에서 문자열 처리는 이걸로" };
+	string s2 = s1;
+
+	cout << "s1 - " << s1 << endl;
+	cout << "s2 - " << s2 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:56:24 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include <string>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	string s1{ "C++ 언어에서 문자열 처리는 이걸로" };
+	string s2 = move(s1);	//"이동" - (사용이유: 시간상의 엄청난 이득을 본다!!)
+
+	cout << "s1 - " << s1 << endl;
+	cout << "s2 - " << s2 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:57:09 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include <string>
+#include "save.h"	
+using namespace std;
+
+int main()
+{
+	string s1{ "C++ 언어에서 문자열 처리는 이걸로" };
+	string s2 = static_cast<string&&>(s1);	//=> 정식 표기
+	//"이동" - (사용이유: 시간상의 엄청난 이득을 본다!!)
+
+	cout << "s1 - " << s1 << endl;
+	cout << "s2 - " << s2 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 6:59:35 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+};
+
+int main()
+{
+	Dog a;
+	cout << sizeof(Dog) << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:01:04 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	for (Dog dog : dogs)
+		dog.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:02:37 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제> main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	for (Dog dog : dogs)
+		dog.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:09:18 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	//for (Dog dog : dogs)
+	//	dog.show();
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:10:22 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (Dog dog : dogs)
+		dog.show();
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:12:22 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	//for (Dog dog : dogs) -> 펼치면 아래와 같다.
+	for (int i = 0; i < 3; ++i) {
+		Dog dog = dogs[i];		//복사 생성한것
+		dog.show();
+	}
+	//잉 소멸이 왜 생겼지? => 생성되지 않으면 소멸되지도 않아야함
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:17:21 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	//for (Dog dog : dogs) -> 펼치면 아래와 같다.
+	for (int i = 0; i < 3; ++i) {
+		Dog& dog = dogs[i];	//레퍼런스로 메모리 접근만 한것(메모리를 잡아 먹지X)  -> 따라서 소멸도 없음
+		dog.show();
+	}
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:20:28 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	//for (Dog dog : dogs) -> 펼치면 아래와 같다.
+	for (int i = 0; i < 3; ++i) {
+		Dog& dog = dogs[i];	//레퍼런스로 메모리 접근만 한것(메모리를 잡아 먹지X)  -> 따라서 소멸도 없음
+		dog.show();
+	}
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:21:25 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (Dog dog : dogs) 
+		dog.show();
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:22:34 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (Dog dog : dogs) 
+		dog.show();
+	//메모리에 부담을 준다!
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:33:19 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (Dog& dog : dogs) 
+		dog.show();
+	// 복사하지 말자 라는 뜻! -> 메모리 안 잡음
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:33:49 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (auto& dog : dogs) //auto도 
+		dog.show();
+	// 복사하지 말자 라는 뜻! -> 메모리 안 잡음
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:35:56 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() {
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (Dog& dog : dogs) {	//원격 조작도 가능하다는 뜻!
+		dog.age += 100;
+		dog.show();	//=> 101,102,103 (원하는 결과가 아닌데?) 
+	}
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-10-28 오전 7:39:27 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주1일)
+//
+//
+// 사용자 정의 자료형 (User-defined Data Type)
+//	예) class Test라면
+//
+// C++ 언어는 필요에 따라 6개의 special 함수를 만든다.
+//	1. Test()								- default constructor
+//	2. ~Test()								- default destuctor
+//	3. Test( const Test& )					- copy costructor
+//	4. Test& operator = ( const Test& )		- copy assignment operator
+//	5. Test( Test&& )						- move constructor
+//	[ && -> r-value reference ]
+//	6. Test& operator=( Test&&)				- move assignment operator
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>	
+#include "save.h"	
+using namespace std;
+
+struct Point3D{ float x;float y;float z; };
+
+struct Dog {
+	int age;
+	Point3D vertex[1000];
+
+	Dog(int a) :age{ a } {
+		cout << "생성 - " << age << endl;
+	}
+
+	~Dog() {
+		cout << "소멸 - " << age << endl;
+	}
+
+	Dog(const Dog& other) : age{ other.age } {
+		cout << "복사 생성자 - " << age << endl;
+	}
+
+	void show() const {	//const - qualifier = 자격을 주는것(읽기만 가능)
+		cout << "Dog - " << age << endl;
+	}
+};
+
+//	<중요 문제>
+//	main을 수정하지 않는다.
+//	Dog의 생성과 소멸을 관찰하라.
+//	(확인) 생성과 소멸의 짝이 맞는 지 확인한다.
+//	show() 함수는 나이를 제대로 출력해야한다. (1,2,3)
+
+int main()
+{
+	Dog dogs[3] = { 1,2,3 };
+
+	cout << "**********************************" << endl;
+	for (const Dog& dog : dogs) {	//원격 조작은 막는다! (읽기만 가능하다!) -> show 함수도 바꿔줘야함
+		dog.show();	//=> 1,2,3 (굿) 
+	}
+	cout << "**********************************" << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:07:21 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제]
+
+int main()
+{
+	string s1{ "class string은 문자열을 저장하는데 특화되어있다." };
+
+	cout << s1.size() << endl;
+	cout << s1 << endl;
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:08:30 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제]
+
+int main()
+{
+	string s1{ "abc" };
+
+	cout << s1.size() << endl;	//글짜수
+	cout << s1 << endl;
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:11:10 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+
+using String = string;
+
+int main()
+{
+	String s1{ "abc" };
+
+	cout << s1.size() << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:14:39 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <string>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+
+struct String {
+	size_t num;	//unsigned int와 같은 뜻
+	
+	String(string str) {
+		num = str.size();
+	}
+
+	int size() {
+		return num;
+	}
+};
+
+int main()
+{
+	String s1{ "abc" };
+
+	cout << s1.size() << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:30:24 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	//unsigned int와 같은 뜻
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		char* p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};
+
+	cout << s1.size() << endl;
+	//cout << s1 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:33:20 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};
+
+	cout << s1.size() << endl;
+	s1.show();
+	//cout << s1 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:33:36 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "ㅇ모녀오ㅕ노156484asdads"};
+
+	cout << s1.size() << endl;
+	s1.show();
+	//cout << s1 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:35:25 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};
+
+	cout << s1.size() << endl;
+	s1.show();
+	//cout << s1 << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:36:44 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};
+	My_string s2 = s1;
+
+	s1.show();
+	s2.show();	// 프로그램이 정상 종료안된다. (0으로 안끝남)
+	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:53:17 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};	// My_string(const char* )	- 개입되는 곳
+	My_string s2 = s1;						// My_string(const My_string& )  - 깊은 복사(deep copy)
+
+	s1.show();
+	s2.show();	// 프로그램이 정상 종료안된다. (0으로 안끝남)
+				// 이유 - s2가 s1과 같은 주소를 받게되는데 이때 s1의 메모리를 먼저 해제하므로 s2가 소멸할려하면 못하게되기떄문이다.
+	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:55:14 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};	// My_string(const char* )	- 개입되는 곳
+	My_string s2 = s1;						// My_string(const My_string& )  - 깊은 복사(deep copy)
+
+	s1.show();
+	s2.show();	// 프로그램이 정상 종료안된다. (0으로 안끝남)
+				// 이유 - s2가 s1과 같은 주소를 받게되는데 이때 s1의 메모리를 먼저 해제하므로 s2가 소멸할려하면 못하게되기떄문이다.
+	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:56:10 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void* )p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};	// My_string(const char* )	- 개입되는 곳
+	My_string s2 = s1;						// My_string(const My_string& )  - 깊은 복사(deep copy)
+
+	s1.show();
+	s2.show();	// 프로그램이 정상 종료안된다. (0으로 안끝남)
+				// 이유 - s2가 s1과 같은 주소를 받게되는데 이때 s1의 메모리를 먼저 해제하므로 s2가 소멸할려하면 못하게되기떄문이다.
+	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 2:57:12 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void* )p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};	// My_string(const char* )	- 개입되는 곳
+	My_string s2{ "15654" };
+
+	s1.show();
+	s2.show();	// 프로그램이 정상 종료안된다. (0으로 안끝남)
+				// 이유 - s2가 s1과 같은 주소를 받게되는데 이때 s1의 메모리를 먼저 해제하므로 s2가 소멸할려하면 못하게되기떄문이다.
+	
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2020-11-02 오전 3:00:39 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(8주2일)
+//
+// 시험2 예정 - 11월 9일(월요일 10주 1일)
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 수정하지 않고 실행시켜보자.
+// 이미 표준에 있는 string을 사용하지 말자.
+
+struct My_string {
+	size_t num;	// 저장하고있는 글자수 - size_t == unsigned int
+	char* p;	// 저장하고있는 문자의 시작번지
+	
+	My_string(const char* str) {
+		// 전달 받은 str의 글자수를 센다
+		num = strlen(str);
+
+		// 이 글자수를 저장할 수 있는 메모리를 요청
+		p = new char[num];
+
+		// 할당받은 메모리에 전달된 글자를 복사한다.
+		memcpy(p, str, num);	// memcpy(목적,시작,전체 갯수) -> 메모리 복사 가장빠른 함수
+	}
+
+	~My_string() {
+		cout << "소멸자 - " << (void* )p << endl;
+		delete[] p;	// 할당된 메모리 반드시 돌려주자!
+	}
+
+
+	int size() const{ // num은 고치지 않는다
+		return num;
+	}
+
+	void show() const{
+		for (int i = 0; i < num; ++i)
+			cout << p[i];
+		cout << endl;
+	}
+};
+
+// 다음시간에 복사 생성자 살리는 것에서 시작
+
+int main()
+{
+	My_string s1{ "문자열 저장 전문가"};	// My_string(const char* )	- 개입되는 곳
+	My_string s2 = s1;						// My_string(const My_string& )  - 깊은 복사(deep copy)
+
+	s1.show();
+	s2.show();	// 프로그램이 정상 종료안된다. (0으로 안끝남)
+				// 이유 - s2가 s1과 같은 주소를 받게되는데 이때 s1의 메모리를 먼저 해제하므로 s2가 소멸할려하면 못하게되기떄문이다.
+				// 댕글링 포인터를 삭제하는 행위라고 한다. - 예측할 수 없는 행동
+
+	save("소스.cpp");
+}

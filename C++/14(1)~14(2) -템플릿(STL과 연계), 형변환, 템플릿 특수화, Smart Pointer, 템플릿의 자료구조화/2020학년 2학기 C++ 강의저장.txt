@@ -1,0 +1,2342 @@
+
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:10:41 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+
+	//change(a, b);
+
+	cout << a << ", " << b << endl; // 2,1
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:16:45 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+void change(int&, int&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+
+	change(a, b);
+
+	cout << a << ", " << b << endl; // 2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:20:42 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:46:56 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	friend ostream& operator<<(ostream& os, const Dog& dog);
+};
+
+ostream& operator<<(ostream& os, const Dog& dog)
+{
+	os << dog.n;
+	return os;
+}
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);
+	cout << e << ", " << f << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+} 
+
+void change(Dog& a, Dog& b) {
+	Dog temp{ a };
+	a = b;
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:51:07 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	//다른 방식 (형변환 연산자)
+	operator int() {
+		return n;
+	} //=> 이제 cout이 Dog를 인식할수 있음!
+};
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);
+	cout << e << ", " << f << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+} 
+
+void change(Dog& a, Dog& b) {
+	Dog temp{ a };
+	a = b;
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:52:58 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	//다른 방식 (형변환 연산자)
+	operator int() {
+		return n;
+	} //=> 이제 cout이 Dog를 인식할수 있음!
+};
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);
+	cout << e << ", " << f << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+} 
+
+void change(Dog& a, Dog& b) {
+	Dog temp{ a };	//복사 생성자
+	a = b; //== a.operator= (b); //assignment 연산자
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:55:46 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	//복사생성자
+	Dog(const Dog&) = default;
+	//assignment 연산자
+	Dog& operator=(const Dog&) = default; // => special한 함수 (즉 내가 정의하지 않아도 컴파일러 알아서 실행시켜줌)
+
+	//다른 방식 (형변환 연산자)
+	operator int() {
+		return n;
+	} //=> 이제 cout이 Dog를 인식할수 있음!
+};
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);
+	cout << e << ", " << f << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+} 
+
+void change(Dog& a, Dog& b) {
+	Dog temp{ a };	//복사 생성자
+	a = b; //== a.operator= (b); //assignment 연산자
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:56:35 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	//복사생성자
+	Dog(const Dog&) {
+	
+	}; //내가 직접 정의하면 값이 이상하게 나옴
+	
+	//assignment 연산자
+	Dog& operator=(const Dog&) = default; // => special한 함수 (즉 내가 정의하지 않아도 컴파일러 알아서 실행시켜줌)
+
+	//다른 방식 (형변환 연산자)
+	operator int() {
+		return n;
+	} //=> 이제 cout이 Dog를 인식할수 있음!
+};
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);
+	cout << e << ", " << f << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+} 
+
+void change(Dog& a, Dog& b) {
+	Dog temp{ a };	//복사 생성자
+	a = b; //== a.operator= (b); //assignment 연산자
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-07 오후 9:59:57 - (일요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	//복사생성자
+	Dog(const Dog& other) : n{ other.n } { 
+	
+	};
+	//== 	Dog(const Dog& other) = default;
+	// 굳이 안해도 되는 동작( 컴파일러가 알아서 해주니까) => 하지만 코딩하면 명시적으로 복사생성자를 사용함을 알려줌!
+	
+	//assignment 연산자
+	Dog& operator=(const Dog&) = default; // => special한 함수 (즉 내가 정의하지 않아도 컴파일러 알아서 실행시켜줌)
+
+	//다른 방식 (형변환 연산자)
+	operator int() {
+		return n;
+	} //=> 이제 cout이 Dog를 인식할수 있음!
+};
+
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change(a, b);
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);
+	cout << e << ", " << f << endl;	//2,1
+
+	save("소스.cpp");
+}
+
+void change(int& a, int& b) {
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(char& a, char& b) {
+	char temp{ a };
+	a = b;
+	b = temp;
+} 
+
+void change(Dog& a, Dog& b) {
+	Dog temp{ a };	//복사 생성자
+	a = b; //== a.operator= (b); //assignment 연산자
+	b = temp;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-09 오후 9:29:14 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+// - 어디에 사용할 수 있는가?
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+class Dog {
+	int n;
+
+	//char* p;
+public:
+	Dog(int num) : n{ num } /*, p {new char[n]}*/ {
+		//n=num; 이렇게 코딩하는 것 대신 위에 :n{num} 같이 코딩하는게 권고사항!
+		//p = new char[n]; 도 마찬가지!
+	}
+
+	//복사생성자
+	Dog(const Dog& other) : n{ other.n } { 
+	
+	};
+	//== 	Dog(const Dog& other) = default;
+	// 굳이 안해도 되는 동작( 컴파일러가 알아서 해주니까) => 하지만 코딩하면 명시적으로 복사생성자를 사용함을 알려줌!
+	
+	//assignment 연산자
+	Dog& operator=(const Dog&) = default; // => special한 함수 (즉 내가 정의하지 않아도 컴파일러 알아서 실행시켜줌)
+
+	//다른 방식 (형변환 연산자)
+	operator int() {
+		return n;
+	} //=> 이제 cout이 Dog를 인식할수 있음!
+};
+
+/*
+void change(int&, int&);
+void change(char&, char&);	//=> 함수 오버로딩
+void change(Dog&, Dog&);
+*/
+
+template <typename T>	//=> template == 주형(틀) 
+void change(T& a, T& b) {	//template는 선언과 정의를 같이 한번에 해야함
+	T temp{ a };
+	a = b;
+	b = temp;
+}
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+	change<int>(a, b);				//이렇게 하면 컴퓨터는 자동으로 이전 우리가 직접 코딩한것처럼 알아서 코딩을 내부에서 함
+	cout << a << ", " << b << endl; // 2,1
+
+	char c{ '1' }, d{ '2' };
+	change<char>(c, d);
+	cout << c << ", " << d << endl;	//2,1
+
+	Dog e{ 1 }, f{ 2 };
+	change(e, f);				//change 다음<Dog>생략가능 -> 컴퓨터가 이미 e,f의 자료형을 알고있으므로
+	cout << e << ", " << f << endl;	//2,1
+
+	/*
+	Bird 자료형, Cat 자료형 등등(사용자 정의 자료형들-무한대) 
+	을 change(세계에서 가장 많이 쓰이는 함수)를 한다고 하면 
+	그때마다 매번 change함수를 오버로딩해서 코딩해야하나? 
+	=> 컴퓨터에게 시키자! (약속 'T') <- 반복되는 부분(int,char,...인자들)을 컴퓨터가 자동으로 인식해서 처리
+	*/
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-09 오후 10:13:56 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//  main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+// [문제] 두 값 중 큰 값을  알고싶다.
+// 템플릿 함수를 작성해서 해결하자.
+
+template <typename T>
+const T& myMax(const T& a, const T& b) {
+	if (a < b)
+		return b;
+
+	return a;
+}
+
+int main()
+{
+	cout << myMax<int>(2, 3) << endl;							//3
+	cout << myMax<string>(string{ "abc" }, string{ "123" }) << endl;	//abc
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-09 오후 11:01:54 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//  main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+// [문제] 두 값 중 큰 값을  알고싶다.
+// 템플릿 함수를 작성해서 해결하자.
+
+template <typename T>
+T myMax (T a, T b) {
+	if (a < b)
+		return b;
+
+	return a;
+}
+
+class Cat {
+	int n;
+public:
+	Cat(int n) :n{ n } {};
+
+	operator int() { return n; }
+
+	bool operator<(const Cat& rhs) const {	// Cat에 대한 크기비교 연산자 정의
+		return n < rhs.n;
+	}
+};
+
+int main()
+{
+	cout << myMax( Cat{ 123 }, Cat{ 456 }) << endl;	//456
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-09 오후 11:06:43 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+#define max(a,b) ((a<b)?(b):(a));	
+//cpp은 자료형을 엄격하게 따지는 언어인데 이렇게 define으로 선언하여 사용하면 
+// 자료형을 따질수 없게 되므로 쓰면 안된다.									
+
+int main()
+{
+	cout << max(1, 3);
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-09 오후 11:08:14 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//  main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+// [문제] 두 값 중 큰 값을  알고싶다.
+// 템플릿 함수를 작성해서 해결하자.
+
+template <typename T>
+T myMax (T a, T b) {
+	if (a < b)
+		return b;
+
+	return a;
+}
+
+
+int main()
+{
+	cout << max("1234", "4567") << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-09 오후 11:21:26 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+//  main을 변경하지 않고 원하는 결과가 나오도록 코딩하자
+
+// [문제] 두 값 중 큰 값을  알고싶다.
+// 템플릿 함수를 작성해서 해결하자.
+
+template <typename T>
+T myMax(T a, T b) {
+	if (a < b)
+		return b;
+
+	return a;
+}
+
+// 프로그래머가 원하는 자료형에 대해서 코드를 직접 제공할 수 있다.
+// 템플릿을 특수화(specialization)
+template <>
+const char* myMax (const char* a, const char* b) {
+	cout << "포인터일때..." << endl;
+	if (strlen(a) < strlen(b))
+		return b;
+
+	return a;
+}
+
+
+int main()
+{
+	//만약 글자라면 글자수 길이가긴것이 큰것이다.라고 하고 싶을땐...
+	cout << myMax("1234567", "4567") << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-02-10 오전 12:17:54 - (수요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주1일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+// 시험3 예정 - 12월 16일
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+ 
+class Dog {	//사용자 정의 자료형(class)은 왜 사용할까?
+	//member variables = 속성(attribute) - 나이,이름,키,색깔
+	//memeber function = 행동(behavior) - 움직인다,짖는다
+};
+//-> Dog만을 위한 자료형을 만들수있기 때문 , Dog에게 필요한 것들을 묶어서 만들어 놓고 후에 편이 사용가능
+
+//class --> 원하는 목적에 맞는 특별한 자료형을 만듦 
+//		==> object oriented
+
+//template	--> 자료형과 무관한 프로그래밍
+//			==> Genertic Programming 기법
+//			==> 1. 함수를 만들수 있다. - 문제해결 절차를 기술 --> 알고리즘
+//			==> 2. 클래스를 만들수 있다.  - 자료형과 무관한 자료구조를 만든다. ==> 자료구조
+
+int main()
+{
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:25:03 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Template - S T(emplate) L
+// - 왜 만들어졌나?
+//		자료형의 종류는 무한하다. 함수 오버로딩은 컴퓨터 시켜서 할 수 있다.
+//		좋은 점 - 프로그래머가 단순노동에서 자유로워 짐
+//		나쁜 점 - 어렵다.. 오류메세지를 이해하기 어렵다.
+//		
+// - 어디에 사용할 수 있는가?
+//		
+//
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+ 
+class Dog {	//사용자 정의 자료형(class)은 왜 사용할까?
+	//member variables = 속성(attribute) - 나이,이름,키,색깔
+	//memeber function = 행동(behavior) - 움직인다,짖는다
+};
+//-> Dog만을 위한 자료형을 만들수있기 때문 , Dog에게 필요한 것들을 묶어서 만들어 놓고 후에 편이 사용가능
+
+//template	--> 자료형과 무관한 프로그래밍
+//			==> Genertic Programming 기법 ==<<Paradigm>>
+//			==> 1. 함수를 만들수 있다. - 문제해결 절차를 기술 --> 알고리즘
+//			==> 2. 클래스를 만들수 있다.  - 자료형과 무관한 자료구조를 만든다. ==> 자료구조
+
+//class --> 원하는 목적에 맞는 특별한 자료형을 만듦 
+//		==> object oriented
+//		==> 역활? 책임? 관계?
+
+int main()
+{
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:37:54 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+int main()
+{
+	Test t{ 1234 };		//1234 바이트 메모리를 확보한다.
+	
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:39:14 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+int main()
+{
+	Test t{ 1234 };		//1234 바이트 메모리를 확보한다.
+	t.~Test();	//소멸시점을 지정 가능 (단 이때 소멸이 두번 일어날수 도 있는데 그럼 이미 소멸시킨 메모리를 한번더 삭제가 불가능하여 오류가 발생함)
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:46:06 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+int main()
+{
+	Test* p = new Test{ 1234 };	//1234 메모리 확보
+
+	save("소스.cpp");
+
+	delete p;
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:47:35 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+int main()
+{
+	int* p = (int*)(Test*)new Test{ 1234 };	//1234 메모리 확보
+
+	save("소스.cpp");
+
+	delete p;	//소멸되지 않는다( 클래스의 포인터가 일치해야 정상 소멸시킴)
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:50:11 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+int main()
+{
+	Test* p = new Test{ 1234 };	//1234 메모리 확보
+
+	save("소스.cpp");
+
+	delete p;
+	
+	//하지만 실제 사용에서는 이렇게 생성 삭제를 하지않고 함수를 사용하여 생성과 소멸을 따로따로 작업할 것이다.
+	//또한 메모리 누수(leaking)과 마찬가지로 메모리를 중복하여 삭제하는 행위는 매우 위험하다.
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 2:56:27 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+class SmartPointer {
+	Test* p;
+
+public:
+	SmartPointer(Test* p) : p{ p } {};
+
+	~SmartPointer() {
+		delete p;
+	}
+};
+
+int main()
+{
+	// 포인터 p가 자원을 가리킨다면
+	// p가 사라질때 어차피 자원을 사용할 수 없게 되잖아!
+	// 그렇다면 p가 소멸될때 자기가 가리키는 자원을 반환하게 하면 좋겠는데...
+
+	SmartPointer p{ new Test{1234} };
+	//delete 없이 알아서 자원을 해제함
+
+	save("소스.cpp");
+	
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:07:50 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+class Dog {
+public:
+	Dog() { cout << "Dog생성" << endl; }
+
+	~Dog() { cout << "Dog소멸" << endl; }
+};
+
+template <typename T>	//템플릿을 만들면 어떤 자료형이라도 사용가능
+class SmartPointer {
+	T* p;
+
+public:
+	SmartPointer(T* p) : p{ p } {};
+
+	~SmartPointer() {
+		delete p;
+	}
+};
+
+int main()
+{
+	// 포인터 p가 자원을 가리킨다면
+	// p가 사라질때 어차피 자원을 사용할 수 없게 되잖아!
+	// 그렇다면 p가 소멸될때 자기가 가리키는 자원을 반환하게 하면 좋겠는데...
+
+	SmartPointer<Test> p{ new Test{1234} };
+	SmartPointer<Dog> q{ new Dog };
+
+	save("소스.cpp");
+	
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:10:09 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+class Dog {
+public:
+	Dog() { cout << "Dog생성" << endl; }
+
+	~Dog() { cout << "Dog소멸" << endl; }
+};
+
+template <typename T>	//템플릿을 만들면 어떤 자료형이라도 사용가능
+class SmartPointer {
+	T* p;
+
+public:
+	SmartPointer(T* p) : p{ p } {};
+
+	~SmartPointer() {
+		delete p;
+	}
+};
+
+int main()
+{
+	unique_ptr<Test> p{ new Test{1234} };	//표준 포인터	(내가만든 클래스와 같이 똑같이 돌아감.)
+	unique_ptr<Dog> q{ new Dog };
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:11:41 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include "save.h"	
+using namespace std;
+
+// [문제] 자원을 사용하는 클래스가 있다.
+
+class Test {
+	char* p;
+
+public:
+	Test(int n) {
+		cout << "생성" << endl;
+		p = new char[n];
+	}
+
+	~Test() {
+		cout << "소멸" << endl;
+		delete[] p;
+	}
+};
+
+class Dog {
+public:
+	Dog() { cout << "Dog생성" << endl; }
+
+	~Dog() { cout << "Dog소멸" << endl; }
+};
+
+template <typename T>	//템플릿을 만들면 어떤 자료형이라도 사용가능
+class SmartPointer {
+	T* p;
+
+public:
+	SmartPointer(T* p) : p{ p } {};
+
+	~SmartPointer() {
+		delete p;
+	}
+};
+
+int main()
+{
+	cout << sizeof(unique_ptr<Test>) << endl;	//4바이트로 같다. => 포인터의 상위버전이므로 더 자주쓰도록 익숙해지자!
+
+	unique_ptr<Test> p{ new Test{1234} };	//표준 포인터	(내가만든 클래스와 같이 똑같이 돌아감.)
+	unique_ptr<Dog> q{ new Dog };
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:15:14 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	new int[10];	//뒤에 '[10]'을 우리는 자료구조라고 배운다.
+	new char[10];
+	new Dog[10];
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:16:34 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	// 이 구조의 문제점
+	int a[10]{ 1,2,3,4,5,6,7,8,9,10 };
+
+	cout << a[-1] << endl;
+	cout << a[10] << endl;	//오류없는 것처럼 돌아감
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:17:53 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	// 이 구조의 문제점
+	int a[10]{ 1,2,3,4,5,6,7,8,9,10 };
+
+	cout << a[-1] << endl;
+	cout << *(a+(10)) << endl;	//오류없는 것처럼 돌아감 => syntactic sugar 이기때문
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:19:07 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	// 이 구조의 문제점
+	array<int,10> a{ 1,2,3,4,5,6,7,8,9,10 };
+
+	cout << a[0] << endl;
+	cout << a[9] << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:20:51 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	// 이 구조의 문제점
+	array<int,10> a{ 1,2,3,4,5,6,7,8,9,10 };
+
+	//cout << a[-1] << endl;	//c++이 빠른 이유 => 검사따위는 하지않음 (시간에 포커스한 언어이기때문)
+	//cout << a[10] << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:22:12 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	// 이 구조의 문제점
+	array<int,10> a{ 1,2,3,4,5,6,7,8,9,10 };
+
+	//cout << a[-1] << endl;	//c++이 빠른 이유 => 검사따위는 하지않음 (시간에 포커스한 언어이기때문)
+	//cout << a.at(-1) << endl;	//검사를 따로 해줄수 있다. => 오류발생
+	cout << a.at(5) << endl;	//=>5
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-01 오전 3:23:11 - (월요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+
+class Dog{};
+
+int main()
+{
+	// 이 구조의 문제점
+	array<int,10> a{ 1,2,3,4,5,6,7,8,9,10 };
+
+	//cout << a[-1] << endl;	//c++이 빠른 이유 => 검사따위는 하지않음 (시간에 포커스한 언어이기때문)
+	try {
+		cout << a.at(-1) << endl;	//검사를 따로 해줄 수 있다. => 오류발생
+	}
+	catch (exception& e) {
+		cout << e.what() << endl;
+		exit(0);
+	}
+
+	cout << a.at(5) << endl;	//=>5
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 12:54:00 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+class IntArray {
+	int num;
+	int* p;
+public:
+	IntArray(int n) :num{ n }, p{ new int[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = 333;
+	}
+	~IntArray() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	int operator[](int idx)const {
+		return p[idx];
+	}
+};
+
+int main()
+{
+	IntArray ia{ 10 };	//int 10를 배열로 저장하시오.
+
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+		// ia[i] --> ia.operator[]( i )
+	cout << endl;
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 12:55:51 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+class IntArray {
+	int num;
+	int* p;
+public:
+	IntArray(int n) :num{ n }, p{ new int[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = 333;
+	}
+	~IntArray() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	int operator[](int idx)const {
+		return p[idx];
+	}
+
+	int& operator[](int idx) {
+		return p[idx];
+	}
+};
+
+int main()
+{
+	IntArray ia{ 10 };	//int 10를 배열로 저장하시오.
+
+	//쓰기
+	for (int i = 0; i < ia.size(); ++i)
+		ia[i] = i + 1;
+		// ia.operator[]( i )
+	
+	//읽기
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+		// ia[i] --> ia.operator[]( i )
+	cout << endl;
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 12:57:56 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+class IntArray {
+	int num;
+	int* p;
+public:
+	IntArray(int n) :num{ n }, p{ new int[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = 333;
+	}
+	~IntArray() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	int operator[](int idx)const {
+		cout << "const";
+		return p[idx];
+	}
+
+	int& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+	//함수 오버로딩 같아 보이지만 서로 다르다! (const의 유무 때문)
+};
+
+int main()
+{
+	IntArray ia{ 10 };	//int 10를 배열로 저장하시오.
+
+	//쓰기
+	for (int i = 0; i < ia.size(); ++i)
+		ia[i] = i + 1;
+		// ia.operator[]( i )
+
+	//읽기
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+		// ia[i] --> ia.operator[]( i )
+	cout << endl;
+
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:00:49 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+class IntArray {
+	int num;
+	int* p;
+public:
+	IntArray(int n) :num{ n }, p{ new int[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = 333;
+	}
+	~IntArray() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	int operator[](int idx)const {
+		cout << "const";
+		return p[idx];
+	}
+
+	int& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+	//함수 오버로딩 같아 보이지만 서로 다르다! (const의 유무 때문)
+	//그럼 위에 const함수는 언제 쓰이지? 
+};
+
+void f(IntArray x);
+
+void f(IntArray x)
+{
+	for (int i = 0; i < x.size(); ++i)
+		cout << x[i] << ' ';
+	cout << endl;
+}
+
+int main()
+{
+	IntArray ia{ 10 };	//int 10를 배열로 저장하시오.
+
+	f(ia);	//f는 ia의 값을 화면에 출력한다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:02:24 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+class IntArray {
+	int num;
+	int* p;
+public:
+	IntArray(int n) :num{ n }, p{ new int[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = 333;
+	}
+	~IntArray() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	int operator[](int idx)const {
+		cout << "const";
+		return p[idx];
+	}
+
+	int& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+	//함수 오버로딩 같아 보이지만 서로 다르다! (const의 유무 때문)
+	//그럼 위에 const함수는 언제 쓰이지? 
+};
+
+void f(const IntArray& x);
+
+void f(const IntArray& x)
+{
+	for (int i = 0; i < x.size(); ++i)
+		cout << x[i] << ' ';
+	cout << endl;
+}
+//const로만 출력된다.
+
+int main()
+{
+	IntArray ia{ 10 };	//int 10를 배열로 저장하시오.
+
+	f(ia);	//f는 ia의 값을 화면에 출력한다.
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:08:31 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+template <typename T>
+class Array {
+	int num;
+	T* p;
+public:
+	Array(int n) :num{ n }, p{ new T[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = T{};	// 디폴트값
+	}
+	~Array() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	T operator[](int idx)const {
+		return p[idx];
+	}
+
+	T& operator[](int idx) {
+		return p[idx];
+	}
+	//함수 오버로딩 같아 보이지만 서로 다르다! (const의 유무 때문)
+	//그럼 위에 const함수는 언제 쓰이지? 
+};
+
+
+int main()
+{
+	Array<int> ia{ 10 };	//int 10를 배열로 저장하시오.
+
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+	cout << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:09:09 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+template <typename T>
+class Array {
+	int num;
+	T* p;
+public:
+	Array(int n) :num{ n }, p{ new T[n] } {
+		for (int i = 0; i < num; ++i)
+			p[i] = T{};	// 디폴트값
+	}
+	~Array() {
+		delete[] p;
+	}
+
+	int size() const {
+		return num;
+	}
+
+	T operator[](int idx)const {
+		return p[idx];
+	}
+
+	T& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+	//함수 오버로딩 같아 보이지만 서로 다르다! (const의 유무 때문)
+	//그럼 위에 const함수는 언제 쓰이지? 
+};
+
+
+int main()
+{
+	Array<string> ia{ 10 };	//string 10를 배열로 저장하시오.
+
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+	cout << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:10:53 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+template <typename T,int N>
+class Array {
+	T p[N];
+public:
+	int size() const {
+		return N;
+	}
+
+	T operator[](int idx)const {
+		return p[idx];
+	}
+
+	T& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+};
+
+
+int main()
+{
+	Array<string, 10> ia;
+
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+	cout << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:11:15 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+template <typename T,int N>
+class Array {
+	T p[N];
+public:
+	int size() const {
+		return N;
+	}
+
+	T operator[](int idx)const {
+		return p[idx];
+	}
+
+	T& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+};
+
+
+int main()
+{
+	Array<string, 100> ia;
+
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+	cout << endl;
+
+	save("소스.cpp");
+}
+
+
+----------------------------------------------
+소스.cpp - 2021-03-02 오전 1:11:49 - (화요일)
+----------------------------------------------
+
+//2020.2학기 C++															(14주2일)
+//
+// Smart Pointer - class 템플릿
+// Array
+//
+//15주차 1일 - 한 학기 배운 내용 정리
+//----------------------------------------------------------------------------------
+
+#pragma warning(disable:4996)
+#include <iostream>
+#include <array>
+#include "save.h"	
+using namespace std;
+
+// <Array>
+// [문제] []배열을 클래스로 만들어 보자
+
+template <typename T,int N>
+class Array {
+	T p[N];
+public:
+	int size() const {
+		return N;
+	}
+
+	T operator[](int idx)const {
+		return p[idx];
+	}
+
+	T& operator[](int idx) {
+		cout << "&";
+		return p[idx];
+	}
+};
+
+
+int main()
+{
+	array<string, 100> ia;	//표준 클래스
+
+	for (int i = 0; i < ia.size(); ++i)
+		cout << ia[i] << ' ';
+	cout << endl;
+
+	save("소스.cpp");
+}
+
+//==> 템플릿으로 자료구조를 만들수 있다는 걸 배움!
